@@ -147,7 +147,7 @@ namespace IEnumerableVisualizerDotNetStandard
 
                                     try
                                     {
-                                        value = propertyInfos[j].GetValue(objects[i])?.ToString() ?? "null";
+                                        value = propertyInfos[j].GetValue(objects[i])?.ToString();
                                     }
                                     catch(Exception ex)
                                     {
@@ -162,7 +162,7 @@ namespace IEnumerableVisualizerDotNetStandard
                             {
                                 for (int j = 0; j < fieldInfos.Length; j++)
                                 {
-                                    values.Add(fieldInfos[j].GetValue(objects[i])?.ToString() ?? "null");
+                                    values.Add(fieldInfos[j].GetValue(objects[i])?.ToString());
                                 }
                             }
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.DebuggerVisualizers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+using System.Data;
 
 namespace IEnumerableVisualizerDotNetStandard.Tests
 {
@@ -10,27 +10,31 @@ namespace IEnumerableVisualizerDotNetStandard.Tests
         [TestMethod]
         public void TestShowVisualizer()
         {
-            //var objectToVisualize = new List<SerializableObject>();
+            var objectToVisualize = new DataTable();
+            objectToVisualize.Columns.Add("Column1");
 
-            //for (int i = 0; i < 500; i++)
-            //{
-            //    objectToVisualize.Add(new SerializableObject()
-            //    {
-            //        Columns = new string[] {"1", "2", "3" },
-            //        Values = new string[] { i.ToString(), (i + 1).ToString(), (i + 3).ToString() }
-            //    });
-            //}
+            for (int i = 0; i < 500; i++)
+            {
+                var row = objectToVisualize.NewRow();
+                row[0] = i;
+                objectToVisualize.Rows.Add(row);
+            }
 
-            //VisualizerDevelopmentHost visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(IEnumerableVisualizer));
-            //visualizerHost.ShowVisualizer();
+            VisualizerDevelopmentHost visualizerHost = 
+                new VisualizerDevelopmentHost(objectToVisualize, typeof(IEnumerableVisualizer));
+
+            visualizerHost.ShowVisualizer();
         }
 
         [TestMethod]
         public void TestShowVisualizerNoData()
         {
-            //object objectToVisualize = new List<SerializableObject>();
-            //VisualizerDevelopmentHost visualizerHost = new VisualizerDevelopmentHost(objectToVisualize, typeof(IEnumerableVisualizer));
-            //visualizerHost.ShowVisualizer();
+            object objectToVisualize = new  DataTable();
+
+            VisualizerDevelopmentHost visualizerHost = 
+                new VisualizerDevelopmentHost(objectToVisualize, typeof(IEnumerableVisualizer));
+
+            visualizerHost.ShowVisualizer();
         }
     }
 }

@@ -72,6 +72,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +82,10 @@
     <ProjectReference Include="..\IEnumerableVisualizerDotNetStandard\IEnumerableVisualizerDotNetStandard.csproj">
       <Project>{5a456195-43ba-4fdf-9a77-df7fa83315f8}</Project>
       <Name>IEnumerableVisualizerDotNetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IEnumerableVisualizer\IEnumerableVisualizer.csproj">
+      <Project>{1d9d8a49-7d6d-47c8-ba42-cce450b9138a}</Project>
+      <Name>IEnumerableVisualizer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

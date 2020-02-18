@@ -68,8 +68,8 @@ namespace IEnumerableVisualizerDotNetStandard
                     results.Columns.Add(string.Format("Value.{0}", column.ColumnName));
                 }
 
-                if(dataTable1.Rows.Count == dataTable2.Rows.Count)
-                { 
+                if (dataTable1.Rows.Count == dataTable2.Rows.Count)
+                {
                     for (int i = 0; i < dataTable1.Rows.Count; i++)
                     {
                         var values = dataTable1.Rows[i].ItemArray.ToList();
@@ -77,11 +77,11 @@ namespace IEnumerableVisualizerDotNetStandard
                         results.Rows.Add(values.ToArray());
                     }
                 }
-                else if(dataTable1.Rows.Count > 0)
+                else if (dataTable1.Rows.Count > 0)
                 {
                     results.Rows.Add(dataTable1.Rows);
                 }
-                else if(dataTable2.Rows.Count > 0 )
+                else if (dataTable2.Rows.Count > 0)
                 {
                     results.Rows.Add(dataTable2.Rows);
                 }
@@ -94,7 +94,6 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             var result = new DataTable();
             objects = objects.Skip(_page * PAGE_COUNT).Take(PAGE_COUNT).ToArray();
-
             var first = objects.FirstOrDefault();
 
             if (first != null)
@@ -106,8 +105,11 @@ namespace IEnumerableVisualizerDotNetStandard
                     var propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
                         .Where(x => x.CanRead && !x.GetIndexParameters().Any()).ToArray();
 
-                    var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                        .ToArray();
+                    var propertyInfosLength = propertyInfos.Length;
+
+                    var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+
+                    var fieldInfosLength = fieldInfos.Length;
 
                     if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                     {
@@ -115,59 +117,50 @@ namespace IEnumerableVisualizerDotNetStandard
                     }
                     else
                     {
-                        if (propertyInfos != null)
+                        for (int j = 0; j < propertyInfosLength; j++)
                         {
-                            for (int j = 0; j < propertyInfos.Length; j++)
-                            {
-                                result.Columns.Add(propertyInfos[j].Name);
-                            }
+                            result.Columns.Add(propertyInfos[j].Name);
+                        }
 
-                            for (int j = 0; j < fieldInfos.Length; j++)
-                            {
-                                result.Columns.Add(fieldInfos[j].Name);
-                            }
+                        for (int j = 0; j < fieldInfosLength; j++)
+                        {
+                            result.Columns.Add(fieldInfos[j].Name);
                         }
                     }
 
                     for (int i = 0; i < objects.Length; i++)
                     {
+                        var values = new List<string>();
+
                         if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                         {
-                            result.Rows.Add(objects[i]);
+                            values.Add(objects[i]?.ToString());
                         }
                         else
                         {
-                            var values = new List<string>();
-
-                            if (propertyInfos != null)
+                            for (int j = 0; j < propertyInfosLength; j++)
                             {
-                                for (int j = 0; j < propertyInfos.Length; j++)
+                                string value = null;
+
+                                try
                                 {
-                                    string value = null;
-
-                                    try
-                                    {
-                                        value = propertyInfos[j].GetValue(objects[i])?.ToString();
-                                    }
-                                    catch(Exception ex)
-                                    {
-                                        value = ex.Message;
-                                    }
-
-                                    values.Add(value);
+                                    value = propertyInfos[j].GetValue(objects[i])?.ToString();
                                 }
+                                catch (Exception ex)
+                                {
+                                    value = ex.Message;
+                                }
+
+                                values.Add(value);
                             }
 
-                            if (fieldInfos != null)
+                            for (int j = 0; j < fieldInfosLength; j++)
                             {
-                                for (int j = 0; j < fieldInfos.Length; j++)
-                                {
-                                    values.Add(fieldInfos[j].GetValue(objects[i])?.ToString());
-                                }
+                                values.Add(fieldInfos[j].GetValue(objects[i])?.ToString());
                             }
-
-                            result.Rows.Add(values.ToArray());
                         }
+
+                        result.Rows.Add(values.ToArray());
                     }
                 }
             }

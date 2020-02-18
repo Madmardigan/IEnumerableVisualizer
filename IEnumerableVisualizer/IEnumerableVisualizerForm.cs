@@ -1,5 +1,4 @@
 ﻿using System.Data;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace IEnumerableVisualizerDotNetStandard
@@ -14,8 +13,17 @@ namespace IEnumerableVisualizerDotNetStandard
 
             if (dataTable != null && dataTable.Rows.Count > 0)
             {
-                dataGridView1.Visible = true;
+                var column = dataTable.Columns.Add(string.Empty, typeof(int));
+                column.SetOrdinal(0);
                 dataGridView1.DataSource = dataTable;
+                dataGridView1.Columns[0].HeaderText = string.Empty;
+
+                for (var i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    dataTable.Rows[i][0] = i;
+                }
+
+                dataGridView1.Visible = true;
             }
             else
             {
@@ -35,6 +43,14 @@ namespace IEnumerableVisualizerDotNetStandard
         private void button1_Click(object sender, System.EventArgs e)
         {
             Close();
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if(e.ColumnIndex == 0)
+            {
+                e.Value = string.Format("[{0}]", e.Value);
+            }
         }
     }
 }

@@ -52,5 +52,10 @@ namespace IEnumerableVisualizerDotNetStandard
                 e.Value = string.Format("[{0}]", e.Value);
             }
         }
+
+        private void IEnumerableVisualizerForm_Shown(object sender, System.EventArgs e)
+        {
+            Cursor.Current = Cursors.Arrow;
+        }
     }
 }

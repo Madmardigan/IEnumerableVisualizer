@@ -8,11 +8,10 @@ namespace ConsoleAppWithList
     /// </summary>
     class Program
     {
-        private const int COUNT = 100;
+        private const int COUNT = 1000;
 
         static void Main(string[] args)
         {
-
             var objects = new List<CustomObject>();
 
             for (int i = 1; i <= COUNT; i++)

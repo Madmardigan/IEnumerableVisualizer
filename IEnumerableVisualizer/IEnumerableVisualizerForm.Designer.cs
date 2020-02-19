@@ -134,6 +134,7 @@
             this.MinimumSize = new System.Drawing.Size(450, 100);
             this.Name = "IEnumerableVisualizerForm";
             this.Text = "IEnumerable Visualizer";
+            this.Shown += new System.EventHandler(this.IEnumerableVisualizerForm_Shown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);

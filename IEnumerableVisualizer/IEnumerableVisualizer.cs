@@ -46,7 +46,6 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 using (var form = new IEnumerableVisualizerForm(dataTable))
                 {
-                    Cursor.Current = Cursors.Arrow;
                     windowService.ShowDialog(form);
                 }
             }

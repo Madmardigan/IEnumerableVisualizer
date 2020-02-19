@@ -73,6 +73,15 @@ namespace ConsoleAppWithList
 
             Console.WriteLine(objects4);
 
+            var dictionary2 = new Dictionary<string, string>();
+
+            for (int i = 0; i < COUNT; i++)
+            {
+                dictionary2.Add(i.ToString(), i.ToString());
+            };
+
+            Console.WriteLine(dictionary2);
+
         }
     }
 

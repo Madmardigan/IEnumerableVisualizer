@@ -30,19 +30,19 @@ namespace IEnumerableVisualizerDotNetStandard
             else
             {
                 DataTable dataTable = new DataTable();
-                DataTable additionalDataTable;
+                DataTable serializeDataTable;
                 Cursor.Current = Cursors.WaitCursor;
 
                 do
                 {
-                    additionalDataTable = (DataTable)objectProvider.GetObject();
+                    serializeDataTable = (DataTable)objectProvider.GetObject();
 
-                    if (additionalDataTable != null)
+                    if (serializeDataTable != null)
                     {
-                        dataTable.Merge(additionalDataTable);
+                        dataTable.Merge(serializeDataTable);
                     }
                 }
-                while (additionalDataTable != null && additionalDataTable.Rows.Count == IEnumerableVisualizerObjectSource.PAGE_COUNT);
+                while (serializeDataTable != null && serializeDataTable.Rows.Count == IEnumerableVisualizerObjectSource.SERIALIZE_COUNT);
 
                 using (var form = new IEnumerableVisualizerForm(dataTable))
                 {

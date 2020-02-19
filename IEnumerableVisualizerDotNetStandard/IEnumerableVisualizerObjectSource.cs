@@ -15,8 +15,8 @@ namespace IEnumerableVisualizerDotNetStandard
     /// </summary>
     public class IEnumerableVisualizerObjectSource : VisualizerObjectSource
     {
-        private int _page = 0;
-        public const int PAGE_COUNT = 50;
+        private int _serializeIndex = 0;
+        public const int SERIALIZE_COUNT = 50;
 
         public override void GetData(object target, Stream outgoingData)
         {
@@ -24,38 +24,38 @@ namespace IEnumerableVisualizerDotNetStandard
 
             if (target is IEnumerable<object> objects)
             {
-                results = GetDataTable(objects);
+                results = Serialize(objects);
             }
             else if (target is IDictionary dictionary)
             {
-                results = GetDataTable(dictionary);
+                results = Serialize(dictionary);
             }
 
             base.GetData(results, outgoingData);
         }
 
-        private DataTable GetDataTable(IEnumerable<object> objects)
+        private DataTable Serialize(IEnumerable<object> objects)
         {
             var results = default(DataTable);
 
             if (objects != null)
             {
-                results = GetSerializableObjects(objects.ToArray());
-                _page++;
+                results = Serialize(objects.ToArray());
+                _serializeIndex++;
             }
 
             return results;
         }
 
-        private DataTable GetDataTable(IDictionary dictionary)
+        private DataTable Serialize(IDictionary dictionary)
         {
             var results = default(DataTable);
 
             if (dictionary != null)
             {
-                var dataTable1 = GetSerializableObjects(dictionary.Keys.Cast<object>().ToArray());
-                var dataTable2 = GetSerializableObjects(dictionary.Values.Cast<object>().ToArray());
-                _page++;
+                var dataTable1 = Serialize(dictionary.Keys.Cast<object>().ToArray());
+                var dataTable2 = Serialize(dictionary.Values.Cast<object>().ToArray());
+                _serializeIndex++;
                 results = new DataTable();
 
                 foreach (DataColumn column in dataTable1.Columns)
@@ -68,20 +68,23 @@ namespace IEnumerableVisualizerDotNetStandard
                     results.Columns.Add(string.Format("Value.{0}", column.ColumnName));
                 }
 
-                if (dataTable1.Rows.Count == dataTable2.Rows.Count)
+                var dataTable1Count = dataTable1.Rows.Count;
+                var dataTable2Count = dataTable2.Rows.Count;
+
+                if (dataTable1Count == dataTable2Count)
                 {
-                    for (int i = 0; i < dataTable1.Rows.Count; i++)
+                    for (int i = 0; i < dataTable1Count; i++)
                     {
                         var values = dataTable1.Rows[i].ItemArray.ToList();
                         values.AddRange(dataTable2.Rows[i].ItemArray);
                         results.Rows.Add(values.ToArray());
                     }
                 }
-                else if (dataTable1.Rows.Count > 0)
+                else if (dataTable1Count > 0)
                 {
                     results.Rows.Add(dataTable1.Rows);
                 }
-                else if (dataTable2.Rows.Count > 0)
+                else if (dataTable2Count > 0)
                 {
                     results.Rows.Add(dataTable2.Rows);
                 }
@@ -90,10 +93,10 @@ namespace IEnumerableVisualizerDotNetStandard
             return results;
         }
 
-        private DataTable GetSerializableObjects(object[] objects)
+        private DataTable Serialize(object[] objects)
         {
             var result = new DataTable();
-            objects = objects.Skip(_page * PAGE_COUNT).Take(PAGE_COUNT).ToArray();
+            objects = objects.Skip(_serializeIndex * SERIALIZE_COUNT).Take(SERIALIZE_COUNT).ToArray();
             var first = objects.FirstOrDefault();
 
             if (first != null)
@@ -106,9 +109,7 @@ namespace IEnumerableVisualizerDotNetStandard
                         .Where(x => x.CanRead && !x.GetIndexParameters().Any()).ToArray();
 
                     var propertyInfosLength = propertyInfos.Length;
-
                     var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-
                     var fieldInfosLength = fieldInfos.Length;
 
                     if (type.IsPrimitive || type.IsValueType || type == typeof(string))

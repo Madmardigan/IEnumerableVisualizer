@@ -7,7 +7,6 @@
         <Icon>Resources\IEnumerableVisualizerVSPackage.ico</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>
         <Tags>array arrays collection debug debugger dictionaries dictionary elements ienumerable list lists view visualizer</Tags>
-        <Preview>true</Preview>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />

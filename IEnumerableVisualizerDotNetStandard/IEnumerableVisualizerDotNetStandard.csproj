@@ -6,6 +6,11 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>IEnumerableVisualizerDotNetStandard</RootNamespace>
     <Platforms>AnyCPU;x64</Platforms>
+    <Authors>Daniel Ohm</Authors>
+    <Company>CYB3RM4GE LLC</Company>
+    <Copyright>CYB3RM4GE LLC</Copyright>
+    <PackageIcon></PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

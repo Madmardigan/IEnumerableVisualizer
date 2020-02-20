@@ -118,15 +118,15 @@ namespace IEnumerableVisualizerDotNetStandard
                     }
                     else
                     {
-                        for (int j = 0; j < propertyInfosLength; j++)
-                        {
-                            result.Columns.Add(propertyInfos[j].Name);
-                        }
-
                         for (int j = 0; j < fieldInfosLength; j++)
                         {
                             result.Columns.Add(fieldInfos[j].Name);
                         }
+
+                        for (int j = 0; j < propertyInfosLength; j++)
+                        {
+                            result.Columns.Add(propertyInfos[j].Name);
+                        }                        
                     }
 
                     for (int i = 0; i < objects.Length; i++)
@@ -139,6 +139,11 @@ namespace IEnumerableVisualizerDotNetStandard
                         }
                         else
                         {
+                            for (int j = 0; j < fieldInfosLength; j++)
+                            {
+                                values.Add(fieldInfos[j].GetValue(objects[i])?.ToString());
+                            }
+
                             for (int j = 0; j < propertyInfosLength; j++)
                             {
                                 string value = null;
@@ -153,12 +158,7 @@ namespace IEnumerableVisualizerDotNetStandard
                                 }
 
                                 values.Add(value);
-                            }
-
-                            for (int j = 0; j < fieldInfosLength; j++)
-                            {
-                                values.Add(fieldInfos[j].GetValue(objects[i])?.ToString());
-                            }
+                            }                           
                         }
 
                         result.Rows.Add(values.ToArray());

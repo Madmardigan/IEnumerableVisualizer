@@ -8,7 +8,7 @@ namespace ConsoleAppWithList
     /// </summary>
     class Program
     {
-        private const int COUNT = 1000;
+        private const int COUNT = 100;
 
         static void Main(string[] args)
         {
@@ -19,10 +19,24 @@ namespace ConsoleAppWithList
                 objects.Add(new CustomObject()
                 {
                     Field = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property = string.Format("Property {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
+                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
                     Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
                     Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
                     Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
+                    Property5 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property6 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property7 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property8 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property9 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property11 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property12 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property13 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property14 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property15 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property16 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property17 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property18 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                    Property19 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
                 });
             }
 
@@ -87,17 +101,26 @@ namespace ConsoleAppWithList
     class CustomObject
     {
         public string Field;
-        public string Property { get; set; }
 
         public int Error { get { throw new Exception("test"); } }
+        public string Property1 { get; set; }
         public string Property2 { get; set; }
         public string Property3 { get; set; }
         public string Property4 { get; set; }
         public string Property5 { get; set; }
-        public int Property6 { get; set; }
-        public int Property7 { get; set; }
-        public int Property8 { get; set; }
-        public int Property9 { get; set; }
+        public string Property6 { get; set; }
+        public string Property7 { get; set; }
+        public string Property8 { get; set; }
+        public string Property9 { get; set; }
+        public string Property11 { get; set; }
+        public string Property12 { get; set; }
+        public string Property13 { get; set; }
+        public string Property14 { get; set; }
+        public string Property15 { get; set; }
+        public string Property16  {get; set; }
+        public string Property17 { get; set; }
+        public string Property18 { get; set; }
+        public string Property19 { get; set; }
     }
 
     class CustomObjectNoFields

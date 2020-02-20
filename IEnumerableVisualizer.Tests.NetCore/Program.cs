@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleAppWithList
+namespace IEnumerableVisualizer.Tests.NetCore
 {
     /// <summary>
     /// This is a .NET Core application.

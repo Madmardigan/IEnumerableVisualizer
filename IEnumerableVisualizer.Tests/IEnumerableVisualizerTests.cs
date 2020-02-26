@@ -36,5 +36,33 @@ namespace IEnumerableVisualizerDotNetStandard.Tests
 
             visualizerHost.ShowVisualizer();
         }
+
+        [TestMethod]
+        public void TestShowVisualizerManyColumns()
+        {
+            var objectToVisualize = new DataTable();
+
+            for (int i = 0; i < 20; i++)
+            {
+                objectToVisualize.Columns.Add("Column" + i);
+            }
+
+            for (int i = 0; i < 500; i++)
+            {
+                var row = objectToVisualize.NewRow();
+
+                for (int j = 0; j < 20; j++)
+                {
+                    row[j] = string.Format("{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}  {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i);
+                }
+
+                objectToVisualize.Rows.Add(row);
+            }
+
+            VisualizerDevelopmentHost visualizerHost =
+                new VisualizerDevelopmentHost(objectToVisualize, typeof(IEnumerableVisualizer));
+
+            visualizerHost.ShowVisualizer();
+        }
     }
 }

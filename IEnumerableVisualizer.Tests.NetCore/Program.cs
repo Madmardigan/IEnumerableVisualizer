@@ -82,8 +82,9 @@ namespace IEnumerableVisualizer.Tests.NetCore
                 dictionary2.Add(i.ToString(), i.ToString());
             };
 
-            Console.WriteLine(dictionary2);
-
+            Console.WriteLine(dictionary2);            
+            byte[] byteArray = new byte[] { 0x01, 0x1e };
+            Console.WriteLine(byteArray);
         }
     }
 

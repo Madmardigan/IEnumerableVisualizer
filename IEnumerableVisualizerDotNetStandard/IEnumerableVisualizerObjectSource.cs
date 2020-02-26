@@ -26,6 +26,10 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(objects);
             }
+            else if (target is Array array)
+            {
+                results = Serialize(array.Cast<object>());
+            }
             else if (target is IDictionary dictionary)
             {
                 results = Serialize(dictionary);
@@ -93,7 +97,7 @@ namespace IEnumerableVisualizerDotNetStandard
             return results;
         }
 
-        private DataTable Serialize(object[] objects)
+        public DataTable Serialize(object[] objects)
         {
             var result = new DataTable();
             objects = objects.Skip(_serializeIndex * SERIALIZE_COUNT).Take(SERIALIZE_COUNT).ToArray();

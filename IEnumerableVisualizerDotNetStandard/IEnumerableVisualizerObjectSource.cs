@@ -20,19 +20,55 @@ namespace IEnumerableVisualizerDotNetStandard
 
         public override void GetData(object target, Stream outgoingData)
         {
-            var results = default(DataTable);
-
-            if (target is IEnumerable<object> objects)
-            {
-                results = Serialize(objects);
-            }
-            else if (target is Array array)
+            DataTable results;
+                                 
+            if (target is Array array)
             {
                 results = Serialize(array.Cast<object>());
             }
-            else if (target is IDictionary dictionary)
+            else if (target is BitArray bitArray)
             {
-                results = Serialize(dictionary);
+                results = Serialize(bitArray.Cast<object>());
+            }
+            else if (target is Dictionary<object, object> dictionary1)
+            {
+                results = Serialize(dictionary1);
+            }
+            else if (target is List<object> list)
+            {
+                results = Serialize(list);
+            }
+            else if (target is IList<object> iList1)
+            {
+                results = Serialize(iList1);
+            }
+            else if (target is IList iList2)
+            {
+                results = Serialize(iList2.Cast<object>());
+            }
+            else if (target is IDictionary dictionary2)
+            {
+                results = Serialize(dictionary2);
+            }
+            else if(target is ICollection<object> iCollection1)
+            {
+                results = Serialize(iCollection1.Cast<object>());
+            }
+            else if(target is ICollection iCollection2)
+            {
+                results = Serialize(iCollection2.Cast<object>());
+            }
+            else if (target is IEnumerable<object> iEnumerable1)
+            {
+                results = Serialize(iEnumerable1);
+            }
+            else if (target is IEnumerable iEnumerable2)
+            {
+                results = Serialize(iEnumerable2.Cast<object>());
+            }
+            else
+            {
+                results = new DataTable();
             }
 
             base.GetData(results, outgoingData);
@@ -64,12 +100,12 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 foreach (DataColumn column in dataTable1.Columns)
                 {
-                    results.Columns.Add(string.Format("Key.{0}", column.ColumnName));
+                    results.Columns.Add(string.Format("[{0}]", column.ColumnName));
                 }
 
                 foreach (DataColumn column in dataTable2.Columns)
                 {
-                    results.Columns.Add(string.Format("Value.{0}", column.ColumnName));
+                    results.Columns.Add(column.ColumnName);
                 }
 
                 var dataTable1Count = dataTable1.Rows.Count;

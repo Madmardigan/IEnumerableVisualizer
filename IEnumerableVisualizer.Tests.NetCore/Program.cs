@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace IEnumerableVisualizer.Tests.NetCore
@@ -85,6 +86,9 @@ namespace IEnumerableVisualizer.Tests.NetCore
             Console.WriteLine(dictionary2);            
             byte[] byteArray = new byte[] { 0x01, 0x1e };
             Console.WriteLine(byteArray);
+
+            var bitArray = new BitArray(new bool[] { false, false, false, true, true, false, true });
+            Console.WriteLine(bitArray);
         }
     }
 

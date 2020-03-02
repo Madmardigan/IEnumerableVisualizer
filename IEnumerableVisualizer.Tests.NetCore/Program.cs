@@ -18,20 +18,8 @@ namespace IEnumerableVisualizer.Tests.NetCore
 
             for (int i = 1; i <= COUNT; i++)
             {
-                list.Add(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                list.Add(GetCustomObject(i));
             }
-
-            Console.WriteLine(list);
 
             var dictionary = new Dictionary<string, CustomObject>();
 
@@ -39,8 +27,6 @@ namespace IEnumerableVisualizer.Tests.NetCore
             {
                 dictionary.Add(i.ToString(), list[i]);
             };
-
-            Console.WriteLine(dictionary);
 
             var list2 = new List<CustomObjectNoFields>();
 
@@ -53,8 +39,6 @@ namespace IEnumerableVisualizer.Tests.NetCore
                 });
             }
 
-            Console.WriteLine(list2);
-
             var list3 = new List<CustomObjectNoProperties>();
 
             for (int i = 1; i <= COUNT; i++)
@@ -66,16 +50,12 @@ namespace IEnumerableVisualizer.Tests.NetCore
                 });
             }
 
-            Console.WriteLine(list3);
-
             var list4 = new List<CustomObjectNoPropertiesOrFields>();
 
             for (int i = 1; i <= COUNT; i++)
             {
                 list4.Add(new CustomObjectNoPropertiesOrFields());
             }
-
-            Console.WriteLine(list4);
 
             var dictionary2 = new Dictionary<string, string>();
 
@@ -84,319 +64,133 @@ namespace IEnumerableVisualizer.Tests.NetCore
                 dictionary2.Add(i.ToString(), i.ToString());
             };
 
-            Console.WriteLine(dictionary2);
-
             var array = new CustomObject[COUNT];
 
             for (int i = 0; i < COUNT; i++)
             {
-                array[i] = new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                };
+                array[i] = GetCustomObject(i);
             }
-
-            Console.WriteLine(array);
 
             var arrayList = new ArrayList();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                arrayList.Add(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                arrayList.Add(GetCustomObject(i));
             }
 
-            Console.WriteLine(arrayList);
             var bitArray = new BitArray(new bool[] { false, false, false, true, true, false, true });
-            Console.WriteLine(bitArray);
-
             var blockingCollection = new BlockingCollection<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                blockingCollection.Add(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                blockingCollection.Add(GetCustomObject(i));
             }
-
-            Console.WriteLine(blockingCollection);
 
             var concurrentBag = new ConcurrentBag<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentBag.Add(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                concurrentBag.Add(GetCustomObject(i));
             }
-
-            Console.WriteLine(concurrentBag);
 
             var concurrentDictionary = new ConcurrentDictionary<CustomObject, CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentDictionary.TryAdd(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                }, new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                concurrentDictionary.TryAdd(GetCustomObject(i), GetCustomObject(i));
             }
-
-            Console.WriteLine(concurrentDictionary);
 
             var concurrentQueue = new ConcurrentQueue<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentQueue.Enqueue(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                concurrentQueue.Enqueue(GetCustomObject(i));
             }
-
-            Console.WriteLine(concurrentQueue);
 
             var concurrentStack = new ConcurrentStack<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentStack.Push(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                concurrentStack.Push(GetCustomObject(i));
             }
-
-            Console.WriteLine(concurrentStack);
-
-            Console.WriteLine(dictionary);
-
-            Console.WriteLine(list);
 
             var linkedList = new LinkedList<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                linkedList.AddLast(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                linkedList.AddLast(GetCustomObject(i));
             }
-
-            Console.WriteLine(linkedList);
 
             var stack1 = new Stack<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                stack1.Push(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                stack1.Push(GetCustomObject(i));
             }
-
-            Console.WriteLine(stack1);
 
             var stack2 = new Stack();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                stack2.Push(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                stack2.Push(GetCustomObject(i));
             }
-
-            Console.WriteLine(stack2);
 
             var sortedList1 = new SortedList();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                sortedList1.Add(i, new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                sortedList1.Add(i, GetCustomObject(i));
             }
-
-            Console.WriteLine(sortedList1);
 
             var sortedList2 = new SortedList<CustomObject, CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                sortedList2.Add(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                }, new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                sortedList2.Add(GetCustomObject(i), GetCustomObject(i));
             }
-
-
-            Console.WriteLine(sortedList2);
 
             var sortedSet = new SortedSet<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                sortedSet.Add(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                sortedSet.Add(GetCustomObject(i));
             }
-
-
-            Console.WriteLine(sortedSet);
-
+            
             var queue1 = new Queue();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                queue1.Enqueue(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                queue1.Enqueue(GetCustomObject(i));
             }
-
-            Console.WriteLine(queue1);
 
             var queue2 = new Queue<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                queue2.Enqueue(new CustomObject()
-                {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                    Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-                });
+                queue2.Enqueue(GetCustomObject(i));
             }
 
+            Console.WriteLine(list);
+            Console.WriteLine(dictionary);
+            Console.WriteLine(list2);
+            Console.WriteLine(list3);
+            Console.WriteLine(list4);
+            Console.WriteLine(dictionary2);
+            Console.WriteLine(array);
+            Console.WriteLine(arrayList);
+            Console.WriteLine(bitArray);
+            Console.WriteLine(blockingCollection);
+            Console.WriteLine(concurrentBag);
+            Console.WriteLine(concurrentDictionary);
+            Console.WriteLine(concurrentQueue);
+            Console.WriteLine(concurrentStack);
+            Console.WriteLine(linkedList);
+            Console.WriteLine(stack1);
+            Console.WriteLine(stack2);
+            Console.WriteLine(sortedList1);
+            Console.WriteLine(sortedList2);
+            Console.WriteLine(sortedSet);
+            Console.WriteLine(queue1);
             Console.WriteLine(queue2);
 
             //todo: test
@@ -406,6 +200,20 @@ namespace IEnumerableVisualizer.Tests.NetCore
             //Console.WriteLine(dictionaryBase);
             //var readOnlyCollectionBase = new ReadOnlyCollectionBase();
             //Console.WriteLine(readOnlyCollectionBase);
+        }
+        public static  CustomObject GetCustomObject(int i)
+        {
+            return new CustomObject()
+            {
+                Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
+                Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
+                Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
+                Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
+                Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
+                Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
+            };
         }
     }
 }

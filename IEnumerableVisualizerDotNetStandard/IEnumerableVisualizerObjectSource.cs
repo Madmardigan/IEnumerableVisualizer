@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.DebuggerVisualizers;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -21,22 +22,94 @@ namespace IEnumerableVisualizerDotNetStandard
         public override void GetData(object target, Stream outgoingData)
         {
             DataTable results;
-                                 
+
             if (target is Array array)
             {
                 results = Serialize(array.Cast<object>());
+            }
+            else if (target is ArrayList arrayList)
+            {
+                results = Serialize(arrayList.Cast<object>());
             }
             else if (target is BitArray bitArray)
             {
                 results = Serialize(bitArray.Cast<object>());
             }
+            else if (target is BlockingCollection<object> blockingCollection)
+            {
+                results = Serialize(blockingCollection);
+            }
+            else if (target is CollectionBase collectionBase)
+            {
+                results = Serialize(collectionBase.Cast<object>());
+            }
+            else if (target is ConcurrentBag<object> concurrentBag)
+            {
+                results = Serialize(concurrentBag);
+            }
+            else if (target is ConcurrentDictionary<object, object> concurrentDictionary)
+            {
+                results = Serialize(concurrentDictionary);
+            }
+            else if (target is ConcurrentQueue<object> concurrentQueue)
+            {
+                results = Serialize(concurrentQueue);
+            }
+            else if (target is ConcurrentStack<object> concurrentStack)
+            {
+                results = Serialize(concurrentStack);
+            }
             else if (target is Dictionary<object, object> dictionary1)
             {
                 results = Serialize(dictionary1);
             }
+            else if (target is DictionaryBase dictionaryBase)
+            {
+                results = Serialize(dictionaryBase);
+            }
+            else if (target is LinkedList<object> linkedList)
+            {
+                results = Serialize(linkedList);
+            }
             else if (target is List<object> list)
             {
                 results = Serialize(list);
+            }
+            else if (target is ReadOnlyCollectionBase readOnlyCollectionBase)
+            {
+                results = Serialize(readOnlyCollectionBase.Cast<object>());
+            }
+            else if (target is SortedList<object, object> sortedList1)
+            {
+                results = Serialize(sortedList1);
+            }
+            else if (target is SortedList sortedList2)
+            {
+                results = Serialize(sortedList2);
+            }
+            else if (target is Stack<object> stack1)
+            {
+                results = Serialize(stack1);
+            }
+            else if (target is Stack stack2)
+            {
+                results = Serialize(stack2.Cast<object>());
+            }
+            else if (target is SortedSet<object> sortedSet)
+            {
+                results = Serialize(sortedSet);
+            }
+            else if (target is Queue<object> queue1)
+            {
+                results = Serialize(queue1);
+            }
+            else if(target is Queue queue2)
+            {
+                results = Serialize(queue2.Cast<object>());
+            }
+            else if (target is IDictionary dictionary2)
+            {
+                results = Serialize(dictionary2);
             }
             else if (target is IList<object> iList1)
             {
@@ -46,13 +119,9 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(iList2.Cast<object>());
             }
-            else if (target is IDictionary dictionary2)
-            {
-                results = Serialize(dictionary2);
-            }
             else if(target is ICollection<object> iCollection1)
             {
-                results = Serialize(iCollection1.Cast<object>());
+                results = Serialize(iCollection1);
             }
             else if(target is ICollection iCollection2)
             {

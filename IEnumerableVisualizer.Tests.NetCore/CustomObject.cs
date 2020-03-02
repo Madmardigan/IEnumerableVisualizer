@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class CustomObject
+public class CustomObject: IComparable
 {
     public string Field1;
     public string Field2;
@@ -11,4 +11,9 @@ public class CustomObject
     public string Property2 { get; set; }
     public string Property3 { get; set; }
     public string Property4 { get; set; }
+
+    public int CompareTo(object obj)
+    {
+        return 1;
+    }
 }

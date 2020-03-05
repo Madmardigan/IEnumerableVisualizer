@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data;
 
 namespace IEnumerableVisualizer.Tests.NetCore
 {
@@ -170,6 +171,14 @@ namespace IEnumerableVisualizer.Tests.NetCore
                 queue2.Enqueue(GetCustomObject(i));
             }
 
+            var dataTable = new DataTable();
+            dataTable.Columns.Add("Column1");
+            dataTable.Columns.Add("Column2");
+            dataTable.Rows.Add(1, 2);
+            dataTable.Rows.Add(11, 22);
+            var dataRow = dataTable.Rows[0];
+
+            Console.Write(dataRow);
             Console.WriteLine(list);
             Console.WriteLine(dictionary);
             Console.WriteLine(list2);

@@ -30,6 +30,7 @@ using System.Windows.Forms;
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(SortedSet<>), Description = "SortedSet Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Queue), Description = "Queue Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Queue<>), Description = "Queue Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(DataRow), Description = "DataRow Visualizer")]
 
 namespace IEnumerableVisualizerDotNetStandard
 {

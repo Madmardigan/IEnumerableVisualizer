@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="IEnumerableVisualizer.41b4b810-ad58-4c28-aa37-09e1190eafd2" Version="2.1.4" Language="en-US" Publisher="CYB3RM4GE LLC" />
         <DisplayName>IEnumerable Visualizer</DisplayName>
-        <Description xml:space="preserve">An extension that adds a debug visualizer for select classes that inherit from or contain an object that inherits from the IEnumerable interface.</Description>
+        <Description xml:space="preserve">An extension that adds a debug visualizer for select classes that implement or contain an object that implements the IEnumerable interface.</Description>
         <ReleaseNotes>Added support for DataRow objects to display ItemArray formatted with column names.</ReleaseNotes>
         <Icon>Resources\IEnumerableVisualizerVSPackage.ico</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>

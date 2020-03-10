@@ -141,6 +141,14 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(iCollection2.Cast<object>());
             }
+            else if (target is IQueryable<object> iQueryable1)
+            {
+                results = Serialize(iQueryable1);
+            }
+            else if (target is IQueryable iQueryable2)
+            {
+                results = Serialize(iQueryable2.Cast<object>());
+            }
             else if (target is IEnumerable<object> iEnumerable1)
             {
                 results = Serialize(iEnumerable1);
@@ -277,6 +285,7 @@ namespace IEnumerableVisualizerDotNetStandard
                                 }
                                 catch (Exception ex)
                                 {
+                                    result.Columns[values.Count].DataType = typeof(string);
                                     value = ex.Message;
                                 }
 

@@ -183,12 +183,12 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 foreach (DataColumn column in dataTable1.Columns)
                 {
-                    results.Columns.Add(string.Format("[{0}]", column.ColumnName));
+                    results.Columns.Add(string.Format("[{0}]", column.ColumnName, column.DataType));
                 }
 
                 foreach (DataColumn column in dataTable2.Columns)
                 {
-                    results.Columns.Add(column.ColumnName);
+                    results.Columns.Add(column.ColumnName, column.DataType);
                 }
 
                 var dataTable1Count = dataTable1.Rows.Count;
@@ -237,43 +237,43 @@ namespace IEnumerableVisualizerDotNetStandard
 
                     if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                     {
-                        result.Columns.Add(type.ToString());
+                        result.Columns.Add(type.ToString(), type);
                     }
                     else
                     {
                         for (int j = 0; j < fieldInfosLength; j++)
                         {
-                            result.Columns.Add(fieldInfos[j].Name);
+                            result.Columns.Add(fieldInfos[j].Name, fieldInfos[j].FieldType);
                         }
 
                         for (int j = 0; j < propertyInfosLength; j++)
                         {
-                            result.Columns.Add(propertyInfos[j].Name);
+                            result.Columns.Add(propertyInfos[j].Name, propertyInfos[j].PropertyType);
                         }                        
                     }
 
                     for (int i = 0; i < objects.Length; i++)
                     {
-                        var values = new List<string>();
+                        var values = new List<object>();
 
                         if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                         {
-                            values.Add(objects[i]?.ToString());
+                            values.Add(objects[i]);
                         }
                         else
                         {
                             for (int j = 0; j < fieldInfosLength; j++)
                             {
-                                values.Add(fieldInfos[j].GetValue(objects[i])?.ToString());
+                                values.Add(fieldInfos[j].GetValue(objects[i]));
                             }
 
                             for (int j = 0; j < propertyInfosLength; j++)
                             {
-                                string value = null;
+                                object value = null;
 
                                 try
                                 {
-                                    value = propertyInfos[j].GetValue(objects[i])?.ToString();
+                                    value = propertyInfos[j].GetValue(objects[i]);
                                 }
                                 catch (Exception ex)
                                 {

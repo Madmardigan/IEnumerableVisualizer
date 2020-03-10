@@ -1,0 +1,1 @@
+Serializing object type to enable sorting by value.

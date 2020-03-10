@@ -107,11 +107,15 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\IEnumerableVisualizerVSPackage.ico">
+    <Content Include="Resources\Preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Preview.png">
+    <Content Include="Resources\ReleaseNotes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="Resources\IEnumerableVisualizerVSPackage.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

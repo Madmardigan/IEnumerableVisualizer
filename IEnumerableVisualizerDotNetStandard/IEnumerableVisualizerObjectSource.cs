@@ -246,43 +246,20 @@ namespace IEnumerableVisualizerDotNetStandard
 
                     if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                     {
-                        if (type is IXmlSerializable || type.IsPrimitive)
-                        {
-                            result.Columns.Add(type.ToString(), type);
-                        }
-                        else
-                        {
-                            result.Columns.Add(type.ToString(), typeof(string));
-                        }
+                        result.Columns.Add(type.ToString(), GetColumnType(type));
                     }
                     else
                     {
                         for (int j = 0; j < fieldInfosLength; j++)
                         {
                             var fieldType = fieldInfos[j].FieldType;
-
-                            if (fieldType is IXmlSerializable || fieldType.IsPrimitive)
-                            {
-                                result.Columns.Add(fieldInfos[j].Name, fieldType);
-                            }
-                            else
-                            {
-                                result.Columns.Add(fieldInfos[j].Name, typeof(string));
-                            }
+                            result.Columns.Add(fieldInfos[j].Name,  GetColumnType(fieldType));
                         }
 
                         for (int j = 0; j < propertyInfosLength; j++)
                         {
                             var propertyType = propertyInfos[j].PropertyType;
-
-                            if (propertyType is IXmlSerializable || propertyType.IsPrimitive)
-                            {
-                                result.Columns.Add(propertyInfos[j].Name, propertyType);
-                            }
-                            else
-                            {
-                                result.Columns.Add(propertyInfos[j].Name, typeof(string));
-                            }
+                            result.Columns.Add(propertyInfos[j].Name, GetColumnType(propertyType));
                         }
                     }
 
@@ -333,13 +310,36 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             object result;
 
-            if (type is IXmlSerializable || type.IsPrimitive)
+            if (IsSerializable(type))
             {
                 result = value;
             }
             else
             {
                 result = value?.ToString();
+            }
+
+            return result;
+        }
+
+        private bool IsSerializable(Type type)
+        {
+            var result = false;
+
+            if(type is IXmlSerializable || type.IsPrimitive) {
+                result = true;
+            }
+
+            return result;
+        }
+
+        private Type GetColumnType(Type type)
+        {
+            var result = typeof(string);
+
+            if(IsSerializable(type))
+            {
+                result = type;
             }
 
             return result;

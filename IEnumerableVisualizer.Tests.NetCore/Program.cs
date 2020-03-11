@@ -214,6 +214,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
             //var readOnlyCollectionBase = new ReadOnlyCollectionBase();
             //Console.WriteLine(readOnlyCollectionBase);
         }
+
         public static  CustomObject GetCustomObject(int i)
         {
             return new CustomObject()

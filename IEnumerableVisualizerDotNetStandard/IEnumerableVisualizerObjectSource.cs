@@ -7,6 +7,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace IEnumerableVisualizerDotNetStandard
 {
@@ -59,9 +60,9 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(concurrentStack);
             }
-            else if(target is DataRow dataRow)
+            else if (target is DataRow dataRow)
             {
-                if(dataRow.Table != null)
+                if (dataRow.Table != null)
                 {
                     results = dataRow.Table.Clone();
                     results.Clear();
@@ -71,7 +72,7 @@ namespace IEnumerableVisualizerDotNetStandard
                 {
                     results = Serialize(dataRow.ItemArray);
                 }
-                
+
             }
             else if (target is Dictionary<object, object> dictionary1)
             {
@@ -117,7 +118,7 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(queue1);
             }
-            else if(target is Queue queue2)
+            else if (target is Queue queue2)
             {
                 results = Serialize(queue2.Cast<object>());
             }
@@ -133,11 +134,11 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(iList2.Cast<object>());
             }
-            else if(target is ICollection<object> iCollection1)
+            else if (target is ICollection<object> iCollection1)
             {
                 results = Serialize(iCollection1);
             }
-            else if(target is ICollection iCollection2)
+            else if (target is ICollection iCollection2)
             {
                 results = Serialize(iCollection2.Cast<object>());
             }
@@ -245,19 +246,44 @@ namespace IEnumerableVisualizerDotNetStandard
 
                     if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                     {
-                        result.Columns.Add(type.ToString(), type);
+                        if (type is IXmlSerializable || type.IsPrimitive)
+                        {
+                            result.Columns.Add(type.ToString(), type);
+                        }
+                        else
+                        {
+                            result.Columns.Add(type.ToString(), typeof(string));
+                        }
                     }
                     else
                     {
                         for (int j = 0; j < fieldInfosLength; j++)
                         {
-                            result.Columns.Add(fieldInfos[j].Name, fieldInfos[j].FieldType);
+                            var fieldType = fieldInfos[j].FieldType;
+
+                            if (fieldType is IXmlSerializable || fieldType.IsPrimitive)
+                            {
+                                result.Columns.Add(fieldInfos[j].Name, fieldType);
+                            }
+                            else
+                            {
+                                result.Columns.Add(fieldInfos[j].Name, typeof(string));
+                            }
                         }
 
                         for (int j = 0; j < propertyInfosLength; j++)
                         {
-                            result.Columns.Add(propertyInfos[j].Name, propertyInfos[j].PropertyType);
-                        }                        
+                            var propertyType = propertyInfos[j].PropertyType;
+
+                            if (propertyType is IXmlSerializable || propertyType.IsPrimitive)
+                            {
+                                result.Columns.Add(propertyInfos[j].Name, propertyType);
+                            }
+                            else
+                            {
+                                result.Columns.Add(propertyInfos[j].Name, typeof(string));
+                            }
+                        }
                     }
 
                     for (int i = 0; i < objects.Length; i++)
@@ -266,22 +292,24 @@ namespace IEnumerableVisualizerDotNetStandard
 
                         if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                         {
-                            values.Add(objects[i]);
+                            var value = GetValue(type, objects[i]);
+                            values.Add(value);
                         }
                         else
                         {
                             for (int j = 0; j < fieldInfosLength; j++)
                             {
-                                values.Add(fieldInfos[j].GetValue(objects[i]));
+                                var value = GetValue(result.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
+                                values.Add(value);
                             }
 
                             for (int j = 0; j < propertyInfosLength; j++)
                             {
-                                object value = null;
+                                var value = default(object);
 
                                 try
                                 {
-                                    value = propertyInfos[j].GetValue(objects[i]);
+                                    value = GetValue(result.Columns[values.Count].DataType, propertyInfos[j].GetValue(objects[i]));
                                 }
                                 catch (Exception ex)
                                 {
@@ -290,12 +318,28 @@ namespace IEnumerableVisualizerDotNetStandard
                                 }
 
                                 values.Add(value);
-                            }                           
+                            }
                         }
 
                         result.Rows.Add(values.ToArray());
                     }
                 }
+            }
+
+            return result;
+        }
+
+        private object GetValue(Type type, object value)
+        {
+            object result;
+
+            if (type is IXmlSerializable || type.IsPrimitive)
+            {
+                result = value;
+            }
+            else
+            {
+                result = value?.ToString();
             }
 
             return result;

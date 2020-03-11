@@ -178,6 +178,8 @@ namespace IEnumerableVisualizer.Tests.NetCore
             dataTable.Rows.Add(1, 2);
             dataTable.Rows.Add(11, 22);
             var dataRow = dataTable.Rows[0];
+            var twoDimentionalArray = new object[][] { new object[] { 1 } };
+
 
             Console.Write(dataRow);
             Console.WriteLine(list);
@@ -200,9 +202,10 @@ namespace IEnumerableVisualizer.Tests.NetCore
             Console.WriteLine(sortedList1);
             Console.WriteLine(sortedList2);
             Console.WriteLine(sortedSet);
-            Console.WriteLine(queue1);
+            Console.WriteLine(queue1);            
             Console.WriteLine(queue2);
-
+            Console.WriteLine(twoDimentionalArray);
+            
             //todo: test
             //var collectionBase = _ as CollectionBase;
             //Console.WriteLine(collectionBase);

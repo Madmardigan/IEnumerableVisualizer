@@ -219,14 +219,14 @@ namespace IEnumerableVisualizer.Tests.NetCore
             return new CustomObject()
             {
                 Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                Field2 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                Field3 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                Field4 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
+                Field2 = i,
+                Field3 = i % 2 == 1 ? (int?)i : null,
+                Field4 = null,
                 Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                Property2 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                Property3 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                Property4 = string.Format("Property {0}{0}{0}{0}{0}{0}", i)
-            };
+                Property2 = i,
+                Property3 = i % 2 == 1 ? (int?)i : null,
+                Property4 = new object[][] { new object[] { i } }
+        };
         }
     }
 }

@@ -65,7 +65,7 @@ namespace IEnumerableVisualizerDotNetStandard
                 results = dataRow.Table.Clone();
                 results.Rows.Add(dataRow.ItemArray);
             }
-            else if(target is DataRowCollection dataRowCollection && dataRowCollection.Count > 0 && dataRowCollection[0].Table != null)
+            else if (target is DataRowCollection dataRowCollection && dataRowCollection.Count > 0 && dataRowCollection[0].Table != null)
             {
                 results = dataRowCollection[0].Table.Clone();
                 dataRowCollection.Cast<DataRow>().ToList().ForEach(x => results.Rows.Add(x.ItemArray));
@@ -225,77 +225,91 @@ namespace IEnumerableVisualizerDotNetStandard
         public DataTable Serialize(object[] objects)
         {
             var result = new DataTable();
-            objects = objects.Skip(_serializeIndex * SERIALIZE_COUNT).Take(SERIALIZE_COUNT).ToArray();
-            var first = objects.FirstOrDefault();
+            var isHeterogeneous = objects.Select(x => x.GetType()).Distinct().Count() > 1;
 
-            if (first != null)
+            if (isHeterogeneous)
             {
-                var type = first.GetType();
+                result.Columns.Add(typeof(object).Name);
 
-                if (type != null)
+                for (int i = 0; i < objects.Length; i++)
                 {
-                    var propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                        .Where(x => x.CanRead && !x.GetIndexParameters().Any()).ToArray();
+                    result.Rows.Add(objects[i]?.ToString());
+                }
+            }
+            else
+            {
+                objects = objects.Skip(_serializeIndex * SERIALIZE_COUNT).Take(SERIALIZE_COUNT).ToArray();
+                var first = objects.FirstOrDefault();
 
-                    var propertyInfosLength = propertyInfos.Length;
-                    var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-                    var fieldInfosLength = fieldInfos.Length;
+                if (first != null)
+                {
+                    var type = first.GetType();
 
-                    if (type.IsPrimitive || type.IsValueType || type == typeof(string))
+                    if (type != null)
                     {
-                        result.Columns.Add(type.ToString(), GetColumnType(type));
-                    }
-                    else
-                    {
-                        for (int j = 0; j < fieldInfosLength; j++)
-                        {
-                            var fieldType = fieldInfos[j].FieldType;
-                            result.Columns.Add(fieldInfos[j].Name,  GetColumnType(fieldType));
-                        }
+                        var propertyInfos = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+                            .Where(x => x.CanRead && !x.GetIndexParameters().Any()).ToArray();
 
-                        for (int j = 0; j < propertyInfosLength; j++)
-                        {
-                            var propertyType = propertyInfos[j].PropertyType;
-                            result.Columns.Add(propertyInfos[j].Name, GetColumnType(propertyType));
-                        }
-                    }
-
-                    for (int i = 0; i < objects.Length; i++)
-                    {
-                        var values = new List<object>();
+                        var propertyInfosLength = propertyInfos.Length;
+                        var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+                        var fieldInfosLength = fieldInfos.Length;
 
                         if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                         {
-                            var value = GetValue(type, objects[i]);
-                            values.Add(value);
+                            result.Columns.Add(type.ToString(), GetColumnType(type));
                         }
                         else
                         {
                             for (int j = 0; j < fieldInfosLength; j++)
                             {
-                                var value = GetValue(result.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
-                                values.Add(value);
+                                var fieldType = fieldInfos[j].FieldType;
+                                result.Columns.Add(fieldInfos[j].Name, GetColumnType(fieldType));
                             }
 
                             for (int j = 0; j < propertyInfosLength; j++)
                             {
-                                var value = default(object);
-
-                                try
-                                {
-                                    value = GetValue(result.Columns[values.Count].DataType, propertyInfos[j].GetValue(objects[i]));
-                                }
-                                catch (Exception ex)
-                                {
-                                    result.Columns[values.Count].DataType = typeof(string);
-                                    value = ex.Message;
-                                }
-
-                                values.Add(value);
+                                var propertyType = propertyInfos[j].PropertyType;
+                                result.Columns.Add(propertyInfos[j].Name, GetColumnType(propertyType));
                             }
                         }
 
-                        result.Rows.Add(values.ToArray());
+                        for (int i = 0; i < objects.Length; i++)
+                        {
+                            var values = new List<object>();
+
+                            if (type.IsPrimitive || type.IsValueType || type == typeof(string))
+                            {
+                                var value = GetValue(type, objects[i]);
+                                values.Add(value);
+                            }
+                            else
+                            {
+                                for (int j = 0; j < fieldInfosLength; j++)
+                                {
+                                    var value = GetValue(result.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
+                                    values.Add(value);
+                                }
+
+                                for (int j = 0; j < propertyInfosLength; j++)
+                                {
+                                    var value = default(object);
+
+                                    try
+                                    {
+                                        value = GetValue(result.Columns[values.Count].DataType, propertyInfos[j].GetValue(objects[i]));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        result.Columns[values.Count].DataType = typeof(string);
+                                        value = ex.Message;
+                                    }
+
+                                    values.Add(value);
+                                }
+                            }
+
+                            result.Rows.Add(values.ToArray());
+                        }
                     }
                 }
             }
@@ -323,7 +337,8 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             var result = false;
 
-            if(type is IXmlSerializable || type.IsPrimitive) {
+            if (type is IXmlSerializable || type.IsPrimitive)
+            {
                 result = true;
             }
 
@@ -334,7 +349,7 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             var result = typeof(string);
 
-            if(IsSerializable(type))
+            if (IsSerializable(type))
             {
                 result = type;
             }

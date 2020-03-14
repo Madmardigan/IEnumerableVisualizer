@@ -179,6 +179,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
             dataTable.Rows.Add(11, 22);
             var dataRow = dataTable.Rows[0];
             var twoDimentionalArray = new object[][] { new object[] { 1 } };
+            arrayList.Add(1);
 
             Console.Write(dataRow);
             Console.WriteLine(list);

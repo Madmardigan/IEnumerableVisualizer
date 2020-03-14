@@ -180,7 +180,6 @@ namespace IEnumerableVisualizer.Tests.NetCore
             var dataRow = dataTable.Rows[0];
             var twoDimentionalArray = new object[][] { new object[] { 1 } };
 
-
             Console.Write(dataRow);
             Console.WriteLine(list);
             Console.WriteLine(dictionary);
@@ -205,6 +204,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
             Console.WriteLine(queue1);            
             Console.WriteLine(queue2);
             Console.WriteLine(twoDimentionalArray);
+            Console.WriteLine(dataTable.Rows);
             
             //todo: test
             //var collectionBase = _ as CollectionBase;

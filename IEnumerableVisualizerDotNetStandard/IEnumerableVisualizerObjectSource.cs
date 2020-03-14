@@ -60,19 +60,15 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(concurrentStack);
             }
-            else if (target is DataRow dataRow)
+            else if (target is DataRow dataRow && dataRow.Table != null)
             {
-                if (dataRow.Table != null)
-                {
-                    results = dataRow.Table.Clone();
-                    results.Clear();
-                    results.Rows.Add(dataRow.ItemArray);
-                }
-                else
-                {
-                    results = Serialize(dataRow.ItemArray);
-                }
-
+                results = dataRow.Table.Clone();
+                results.Rows.Add(dataRow.ItemArray);
+            }
+            else if(target is DataRowCollection dataRowCollection && dataRowCollection.Count > 0 && dataRowCollection[0].Table != null)
+            {
+                results = dataRowCollection[0].Table.Clone();
+                dataRowCollection.Cast<DataRow>().ToList().ForEach(x => results.Rows.Add(x.ItemArray));
             }
             else if (target is Dictionary<object, object> dictionary1)
             {

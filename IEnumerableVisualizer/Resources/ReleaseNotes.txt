@@ -1,1 +1,1 @@
-Serializing object type to enable sorting by value.
+Added support for DataRowCollection objects.

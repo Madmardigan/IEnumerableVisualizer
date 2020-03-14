@@ -71,5 +71,20 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             Cursor.Current = Cursors.Arrow;
         }
+
+        private void MouseClickMouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Middle)
+            {
+                if(WindowState != FormWindowState.Maximized)
+                {
+                    WindowState = FormWindowState.Maximized;
+                }
+                else
+                {
+                    WindowState = FormWindowState.Normal;
+                }
+            }
+        }
     }
 }

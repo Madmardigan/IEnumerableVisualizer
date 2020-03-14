@@ -68,6 +68,7 @@
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
+            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
             // 
             // tableLayoutPanel1
             // 
@@ -91,6 +92,7 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 561);
             this.tableLayoutPanel1.TabIndex = 1;
             this.tableLayoutPanel1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
+            this.tableLayoutPanel1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
             // 
             // label1
             // 
@@ -136,6 +138,7 @@
             this.Text = "IEnumerable Visualizer";
             this.Shown += new System.EventHandler(this.IEnumerableVisualizerForm_Shown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

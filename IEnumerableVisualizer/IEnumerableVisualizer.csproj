@@ -78,6 +78,7 @@
     <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="IEnumerableVisualizer.cs" />
     <Compile Include="IEnumerableVisualizerForm.cs">
       <SubType>Form</SubType>

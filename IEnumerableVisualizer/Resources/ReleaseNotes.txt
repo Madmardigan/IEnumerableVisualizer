@@ -1,1 +1,1 @@
-Added support for DataRowCollection objects.
+Added middle mouse button click shortcut to toggle maximize.

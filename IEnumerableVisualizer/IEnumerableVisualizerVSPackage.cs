@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -38,12 +37,12 @@ namespace IEnumerableVisualizerDotNetStandard
                 {
                     var visualStudioFolder = pvar.ToString();
                     var debuggerDirectory = Path.Combine(visualStudioFolder, "Visualizers");
-                    var sourceFile = new FileInfo(string.Format("{0}/{1}", sourceDirectory, DEBUGGER_SIDE_FILENAME));
-                    var debuggerFile = new FileInfo(string.Format("{0}/{1}", debuggerDirectory, DEBUGGER_SIDE_FILENAME));
+                    var sourceFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGER_SIDE_FILENAME));
+                    var debuggerFile = new FileInfo(string.Format(@"{0}\{1}", debuggerDirectory, DEBUGGER_SIDE_FILENAME));
                     Deploy(sourceFile, debuggerFile);
-                    
-                    sourceFile = new FileInfo(string.Format("{0}/{1}", sourceDirectory, DEBUGGEE_SIDE_FILENAME));
-                    
+
+                    sourceFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGEE_SIDE_FILENAME));
+
                     foreach (var debugeeDirectory in DebugeeDirectories)
                     {
                         var destinationFile = new FileInfo(string.Format(@"{0}\{1}\{2}", debuggerDirectory, debugeeDirectory, DEBUGGEE_SIDE_FILENAME));
@@ -60,11 +59,14 @@ namespace IEnumerableVisualizerDotNetStandard
                 Directory.CreateDirectory(destination.DirectoryName);
                 File.Copy(source.FullName, destination.FullName, true);
             }
-            else if (!File.ReadAllBytes(source.FullName).SequenceEqual(File.ReadAllBytes(destination.FullName)))
+            else
             {
-                File.Delete(destination.FullName);
-                File.Copy(source.FullName, destination.FullName);
+                if (source.GetMd5String() != destination.GetMd5String())
+                {
+                    File.Copy(source.FullName, destination.FullName, true);
+                    destination.LastWriteTime = source.LastWriteTime;
+                }
             }
-        }
+        }      
     }
 }

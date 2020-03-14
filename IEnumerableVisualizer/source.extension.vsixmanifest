@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="IEnumerableVisualizer.41b4b810-ad58-4c28-aa37-09e1190eafd2" Version="2.2.1" Language="en-US" Publisher="CYB3RM4GE LLC" />
+        <Identity Id="IEnumerableVisualizer.41b4b810-ad58-4c28-aa37-09e1190eafd2" Version="2.3" Language="en-US" Publisher="CYB3RM4GE LLC" />
         <DisplayName>IEnumerable Visualizer</DisplayName>
         <Description xml:space="preserve">An extension that adds a debug visualizer for select classes that implement or contain an object that implements the IEnumerable interface.</Description>
         <ReleaseNotes>Resources\ReleaseNotes.txt</ReleaseNotes>

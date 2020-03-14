@@ -1,1 +1,2 @@
+Highlighting first row on data binding.
 Added middle mouse button click shortcut to toggle maximize.

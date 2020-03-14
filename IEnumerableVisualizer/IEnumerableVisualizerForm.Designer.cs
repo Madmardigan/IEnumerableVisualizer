@@ -67,6 +67,7 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
             this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
             // 

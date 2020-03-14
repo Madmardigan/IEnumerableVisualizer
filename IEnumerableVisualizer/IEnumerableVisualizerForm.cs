@@ -10,24 +10,34 @@ namespace IEnumerableVisualizerDotNetStandard
             InitializeComponent();
             button1.TabIndex = 0;
 
-            if (dataTable != null && dataTable.Rows.Count > 0)
+            if (dataTable != null)
             {
-                var column = dataTable.Columns.Add(string.Empty, typeof(int));
-                column.SetOrdinal(0);
-                dataGridView1.DataSource = dataTable;
-                dataGridView1.Columns[0].HeaderText = string.Empty;
+                Text = string.Format("{0} Visualizer", dataTable.Namespace);
 
-                for (var i = 0; i < dataTable.Rows.Count; i++)
+                if (dataTable.Rows.Count > 0)
                 {
-                    dataTable.Rows[i][0] = i;
-                }
+                    var column = dataTable.Columns.Add(string.Empty, typeof(int));
+                    column.SetOrdinal(0);
+                    dataGridView1.DataSource = dataTable;
+                    dataGridView1.Columns[0].HeaderText = string.Empty;
 
-                if (dataGridView1.RowHeadersWidth * dataGridView1.Columns.Count < dataGridView1.Width)
+                    for (var i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        dataTable.Rows[i][0] = i;
+                    }
+
+                    if (dataGridView1.RowHeadersWidth * dataGridView1.Columns.Count < dataGridView1.Width)
+                    {
+                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    }
+
+                    dataGridView1.Visible = true;
+                }
+                else
                 {
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    label1.Visible = true;
+                    Size = MinimumSize;
                 }
-
-                dataGridView1.Visible = true;
             }
             else
             {

@@ -62,6 +62,11 @@ namespace IEnumerableVisualizerDotNetStandard
 
                     if (serializeDataTable != null)
                     {
+                        if (string.IsNullOrWhiteSpace(dataTable.Namespace))
+                        {
+                            dataTable.Namespace = serializeDataTable.Namespace;
+                        }
+
                         dataTable.Merge(serializeDataTable);
                     }
                 }

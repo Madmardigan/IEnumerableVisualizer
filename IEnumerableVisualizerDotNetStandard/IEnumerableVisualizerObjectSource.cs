@@ -159,6 +159,7 @@ namespace IEnumerableVisualizerDotNetStandard
                 results = new DataTable();
             }
 
+            results.Namespace = target.GetType().ToString();
             base.GetData(results, outgoingData);
         }
 

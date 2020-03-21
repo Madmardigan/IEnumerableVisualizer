@@ -189,7 +189,7 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 foreach (DataColumn column in dataTable1.Columns)
                 {
-                    results.Columns.Add(string.Format("[{0}]", column.ColumnName, column.DataType));
+                    results.Columns.Add(string.Format("[{0}]", column.ColumnName), column.DataType);
                 }
 
                 foreach (DataColumn column in dataTable2.Columns)

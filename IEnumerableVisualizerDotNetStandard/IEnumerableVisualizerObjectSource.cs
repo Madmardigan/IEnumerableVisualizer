@@ -279,14 +279,34 @@ namespace IEnumerableVisualizerDotNetStandard
 
                             if (type.IsPrimitive || type.IsValueType || type == typeof(string))
                             {
-                                var value = GetValue(type, objects[i]);
+                                var value = default(object);
+
+                                try
+                                {
+                                    value = GetValue(type, objects[i]);
+                                }
+                                catch (Exception ex)
+                                {
+                                    value = ex.Message;
+                                }
+
                                 values.Add(value);
                             }
                             else
                             {
                                 for (int j = 0; j < fieldInfosLength; j++)
                                 {
-                                    var value = GetValue(result.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
+                                    var value = default(object);
+
+                                    try
+                                    {
+                                        value = GetValue(result.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        value = ex.Message;
+                                    }
+
                                     values.Add(value);
                                 }
 
@@ -300,11 +320,18 @@ namespace IEnumerableVisualizerDotNetStandard
                                     }
                                     catch (Exception ex)
                                     {
-                                        result.Columns[values.Count].DataType = typeof(string);
                                         value = ex.Message;
                                     }
 
                                     values.Add(value);
+                                }
+                            }
+
+                            for (int j = 0; j < values.Count(); j++)
+                            {
+                                if(values[j] is string && result.Columns[j].DataType != typeof(string))
+                                {
+                                    result.Columns[j].DataType = typeof(string);
                                 }
                             }
 

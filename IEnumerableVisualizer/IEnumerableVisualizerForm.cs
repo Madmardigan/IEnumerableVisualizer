@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace IEnumerableVisualizerDotNetStandard
@@ -16,6 +17,13 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 if (dataTable.Rows.Count > 0)
                 {
+                    var columnNames = dataTable.Columns.Cast<DataColumn>().Select(x => x.ColumnName).OrderBy(x => x).ToList();
+
+                    for (int i = 0; i < columnNames.Count; i++)
+                    {
+                        dataTable.Columns[columnNames[i]].SetOrdinal(i);
+                    }
+
                     var column = dataTable.Columns.Add(string.Empty, typeof(int));
                     column.SetOrdinal(0);
                     dataGridView1.DataSource = dataTable;

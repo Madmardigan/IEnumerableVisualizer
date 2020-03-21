@@ -59,11 +59,11 @@ namespace IEnumerableVisualizer.Tests.NetCore
                 list4.Add(new CustomObjectNoPropertiesOrFields());
             }
 
-            var dictionary2 = new Dictionary<string, string>();
+            var dictionary2 = new Dictionary<CustomObject, CustomObject>();
 
             for (int i = 0; i < COUNT; i++)
             {
-                dictionary2.Add(i.ToString(), i.ToString());
+                dictionary2.Add(GetCustomObject(i), GetCustomObject(i));
             };
 
             var array = new CustomObject[COUNT];
@@ -178,7 +178,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
             dataTable.Rows.Add(1, 2);
             dataTable.Rows.Add(11, 22);
             var dataRow = dataTable.Rows[0];
-            var twoDimentionalArray = new object[][] { new object[] { 1 } };
+            var twoDimentionalArray = new object[][] { new object[] { 1, default(IntPtr) } };
             arrayList.Add(1);
 
             Console.Write(dataRow);

@@ -1,3 +1,4 @@
+Added support for BindingList.
 Visualizer columns ordered ascending by default.
 Highlighting first row on data binding.
 Added middle mouse button click shortcut to toggle maximize.

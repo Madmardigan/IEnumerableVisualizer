@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 
@@ -180,7 +181,9 @@ namespace IEnumerableVisualizer.Tests.NetCore
             var dataRow = dataTable.Rows[0];
             var twoDimentionalArray = new object[][] { new object[] { 1, default(IntPtr) } };
             arrayList.Add(1);
+            var bindingList = new BindingList<CustomObject>(list);
 
+            Console.Write(bindingList);
             Console.Write(dataRow);
             Console.WriteLine(list);
             Console.WriteLine(dictionary);

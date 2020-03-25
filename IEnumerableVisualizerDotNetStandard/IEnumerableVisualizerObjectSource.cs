@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -35,6 +36,10 @@ namespace IEnumerableVisualizerDotNetStandard
             else if (target is BitArray bitArray)
             {
                 results = Serialize(bitArray.Cast<object>());
+            }
+            else if(target is BindingList<object> bindingList)
+            {
+                results = Serialize(bindingList);
             }
             else if (target is BlockingCollection<object> blockingCollection)
             {

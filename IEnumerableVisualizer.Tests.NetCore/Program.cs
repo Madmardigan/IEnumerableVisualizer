@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace IEnumerableVisualizer.Tests.NetCore
 {
@@ -182,9 +183,16 @@ namespace IEnumerableVisualizer.Tests.NetCore
             var twoDimentionalArray = new object[][] { new object[] { 1, default(IntPtr) } };
             arrayList.Add(1);
             var bindingList = new BindingList<CustomObject>(list);
+            var valueCollection = new Dictionary<string, CustomObject>.ValueCollection(dictionary);
+            var control = new Form();
+            control.Controls.Add(new TextBox());
+            control.Controls.Add(new TextBox());
+            var controlCollection = control.Controls;
 
-            Console.Write(bindingList);
-            Console.Write(dataRow);
+            Console.WriteLine(controlCollection);
+            Console.WriteLine(valueCollection);
+            Console.WriteLine(bindingList);
+            Console.WriteLine(dataRow);
             Console.WriteLine(list);
             Console.WriteLine(dictionary);
             Console.WriteLine(list2);

@@ -54,9 +54,9 @@ namespace IEnumerableVisualizerDotNetStandard
             }
         }
 
-        private void KeyPressKeyPress(object sender, KeyPressEventArgs e)
+        private void IEnumerableVisualizerForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Escape)
+            if (e.KeyCode == Keys.Escape)
             {
                 Close();
             }
@@ -80,11 +80,11 @@ namespace IEnumerableVisualizerDotNetStandard
             Cursor.Current = Cursors.Arrow;
         }
 
-        private void MouseClickMouseClick(object sender, MouseEventArgs e)
+        private void IEnumerableVisualizerForm_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Middle)
+            if (e.Button == MouseButtons.Middle)
             {
-                if(WindowState != FormWindowState.Maximized)
+                if (WindowState != FormWindowState.Maximized)
                 {
                     WindowState = FormWindowState.Maximized;
                 }
@@ -97,9 +97,24 @@ namespace IEnumerableVisualizerDotNetStandard
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            if(dataGridView1.Rows.Count > 0)
+            if (dataGridView1.Rows.Count > 0)
             {
                 dataGridView1.Rows[0].Selected = true;
+            }
+        }
+
+        private void IEnumerableVisualizerForm_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (dataGridView1.Controls.OfType<VScrollBar>().FirstOrDefault()?.Visible != true )
+            {
+                int offset = dataGridView1.HorizontalScrollingOffset + e.Delta;
+
+                if (offset < 0)
+                {
+                    offset = 0;
+                }
+
+                dataGridView1.HorizontalScrollingOffset = offset;
             }
         }
     }

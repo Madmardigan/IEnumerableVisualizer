@@ -109,10 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\GreenMagnifyingGlass.ico" />
-    <Content Include="Resources\Preview.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
     <Content Include="Resources\ReleaseNotes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>

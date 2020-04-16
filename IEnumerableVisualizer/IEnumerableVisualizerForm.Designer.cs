@@ -1,4 +1,7 @@
-﻿namespace IEnumerableVisualizerDotNetStandard
+﻿using System;
+using System.Windows.Forms;
+
+namespace IEnumerableVisualizerDotNetStandard
 {
     partial class IEnumerableVisualizerForm
     {
@@ -68,8 +71,9 @@
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
-            this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
-            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IEnumerableVisualizerForm_KeyDown);
+            this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.IEnumerableVisualizerForm_MouseClick);
+            this.dataGridView1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IEnumerableVisualizerForm_MouseWheel);
             // 
             // tableLayoutPanel1
             // 
@@ -92,8 +96,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 561);
             this.tableLayoutPanel1.TabIndex = 1;
-            this.tableLayoutPanel1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
-            this.tableLayoutPanel1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
+            this.tableLayoutPanel1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IEnumerableVisualizerForm_KeyDown);
+            this.tableLayoutPanel1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.IEnumerableVisualizerForm_MouseClick);
+            this.tableLayoutPanel1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IEnumerableVisualizerForm_MouseWheel);
             // 
             // label1
             // 
@@ -108,7 +113,7 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "There were no results found.";
             this.label1.Visible = false;
-            this.label1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
+            this.label1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IEnumerableVisualizerForm_KeyDown);
             // 
             // button1
             // 
@@ -122,7 +127,7 @@
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            this.button1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
+            this.button1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IEnumerableVisualizerForm_KeyDown);
             // 
             // IEnumerableVisualizerForm
             // 
@@ -138,8 +143,9 @@
             this.Name = "IEnumerableVisualizerForm";
             this.Text = "IEnumerable Visualizer";
             this.Shown += new System.EventHandler(this.IEnumerableVisualizerForm_Shown);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressKeyPress);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MouseClickMouseClick);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.IEnumerableVisualizerForm_MouseWheel);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IEnumerableVisualizerForm_KeyDown);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.IEnumerableVisualizerForm_MouseClick);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

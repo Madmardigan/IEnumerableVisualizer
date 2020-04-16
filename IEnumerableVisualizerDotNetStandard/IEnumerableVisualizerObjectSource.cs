@@ -79,6 +79,10 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(dictionary1);
             }
+            else if(target is Dictionary<object, object>.ValueCollection valueCollection)
+            {
+                results = Serialize(valueCollection);
+            }
             else if (target is DictionaryBase dictionaryBase)
             {
                 results = Serialize(dictionaryBase);
@@ -259,7 +263,7 @@ namespace IEnumerableVisualizerDotNetStandard
                         var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
                         var fieldInfosLength = fieldInfos.Length;
 
-                        if (type.IsPrimitive || type.IsValueType || type == typeof(string))
+                        if (type.IsPrimitive || type.IsValueType || type == typeof(string) || type == typeof(IntPtr))
                         {
                             result.Columns.Add(type.ToString(), GetColumnType(type));
                         }
@@ -369,7 +373,7 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             var result = false;
 
-            if (type is IXmlSerializable || type.IsPrimitive)
+            if ((type is IXmlSerializable || type.IsPrimitive) && type != typeof(IntPtr))
             {
                 result = true;
             }

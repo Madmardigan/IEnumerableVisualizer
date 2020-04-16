@@ -34,6 +34,8 @@ using System.Windows.Forms;
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(DataRow), Description = "DataRow Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(DataRowCollection), Description = "DataRowCollection Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(BindingList<>), Description = "BindingList Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Dictionary<,>.ValueCollection), Description = "ValueCollection Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Control.ControlCollection), Description = "ControlCollection Visualizer")]
 
 namespace IEnumerableVisualizerDotNetStandard
 {

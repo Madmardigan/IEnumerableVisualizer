@@ -80,8 +80,15 @@ namespace IEnumerableVisualizerDotNetStandard
         /// <param name="destination"></param>
         private void Deploy(FileInfo source, FileInfo destination)
         {
-            Directory.CreateDirectory(destination.DirectoryName);
-            File.Copy(source.FullName, destination.FullName, true);
+            try
+            {
+                Directory.CreateDirectory(destination.DirectoryName);
+                File.Copy(source.FullName, destination.FullName, true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

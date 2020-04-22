@@ -20,53 +20,68 @@ namespace IEnumerableVisualizerDotNetStandard
         public const string PackageGuidString = "c4f77588-c327-46b6-bcbe-520f08f858f9";
         public const string DEBUGGER_SIDE_FILENAME = "IEnumerableVisualizer.dll";
         public const string DEBUGGEE_SIDE_FILENAME = "IEnumerableVisualizerDotNetStandard.dll";
-        public readonly string[] DebugeeDirectories = new string[] { "net2.0", "netstandard2.0", "netcoreapp" };
+        public string[] DebugeeDirectories { get; } = new string[] { "net2.0", "netstandard2.0", "netcoreapp" };
+        public const string VISUAL_STUDIO_INSTALL_PATH = @"Common7\Packages\Debugger\Visualizers";
+        public const string MY_DOCUMENTS_INSTALL_PATH = @"Visualizers";
+
 
         public IEnumerableVisualizerVSPackage() { }
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             var sourceDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            //this is the source debugger file that needs deployed
+            var sourceDebuggerFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGER_SIDE_FILENAME));
+            var sourceDebugeeFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGEE_SIDE_FILENAME));
+
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             if (await GetServiceAsync(typeof(SVsShell)) is IVsShell shell)
             {
-                shell.GetProperty((int)__VSSPROPID2.VSSPROPID_VisualStudioDir, out object pvar);
+                //this is directory path 1 in my documents
+                shell.GetProperty((int)__VSSPROPID2.VSSPROPID_VisualStudioDir, out object pvar1);
 
-                if (pvar != null)
+                if (pvar1 != null)
                 {
-                    var visualStudioFolder = pvar.ToString();
-                    var debuggerDirectory = Path.Combine(visualStudioFolder, "Visualizers");
-                    var sourceFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGER_SIDE_FILENAME));
-                    var debuggerFile = new FileInfo(string.Format(@"{0}\{1}", debuggerDirectory, DEBUGGER_SIDE_FILENAME));
-                    Deploy(sourceFile, debuggerFile);
-
-                    sourceFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGEE_SIDE_FILENAME));
+                    var myDocumentsDirectory = Path.Combine(pvar1.ToString(), MY_DOCUMENTS_INSTALL_PATH);
+                    var myDocumentsDebuggerFileName = new FileInfo(string.Format(@"{0}\{1}", myDocumentsDirectory, DEBUGGER_SIDE_FILENAME));
+                    Deploy(sourceDebuggerFile, myDocumentsDebuggerFileName);
 
                     foreach (var debugeeDirectory in DebugeeDirectories)
                     {
-                        var destinationFile = new FileInfo(string.Format(@"{0}\{1}\{2}", debuggerDirectory, debugeeDirectory, DEBUGGEE_SIDE_FILENAME));
-                        Deploy(sourceFile, destinationFile);
+                        var myDocumentsDebugeeFileName = new FileInfo(string.Format(@"{0}\{1}\{2}", myDocumentsDirectory, debugeeDirectory, DEBUGGEE_SIDE_FILENAME));
+                        Deploy(sourceDebugeeFile, myDocumentsDebugeeFileName);
+                    }
+                }
+
+                //this is directory path 2 in in visual studio install folder
+                shell.GetProperty((int)__VSSPROPID2.VSSPROPID_InstallRootDir, out object pvar2);
+
+                if (pvar2 != null)
+                {
+                    var visualStudioDirectory = Path.Combine(pvar2.ToString(), VISUAL_STUDIO_INSTALL_PATH);
+                    var visualStudioDebuggerFileName = new FileInfo(string.Format(@"{0}\{1}", visualStudioDirectory, DEBUGGER_SIDE_FILENAME));
+                    Deploy(sourceDebuggerFile, visualStudioDebuggerFileName);
+
+                    foreach (var debugeeDirectory in DebugeeDirectories)
+                    {
+                        var visualStudioDebugeeFileName = new FileInfo(string.Format(@"{0}\{1}\{2}", visualStudioDirectory, debugeeDirectory, DEBUGGEE_SIDE_FILENAME));
+                        Deploy(sourceDebugeeFile, visualStudioDebugeeFileName);
                     }
                 }
             }
         }
 
+        /// <summary>
+        /// force overwrite due to reference errors in some environments
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="destination"></param>
         private void Deploy(FileInfo source, FileInfo destination)
         {
-            if (!destination.Exists)
-            {
-                Directory.CreateDirectory(destination.DirectoryName);
-                File.Copy(source.FullName, destination.FullName, true);
-            }
-            else
-            {
-                if (source.GetMd5String() != destination.GetMd5String())
-                {
-                    File.Copy(source.FullName, destination.FullName, true);
-                    destination.LastWriteTime = source.LastWriteTime;
-                }
-            }
-        }      
+            Directory.CreateDirectory(destination.DirectoryName);
+            File.Copy(source.FullName, destination.FullName, true);
+        }
     }
 }

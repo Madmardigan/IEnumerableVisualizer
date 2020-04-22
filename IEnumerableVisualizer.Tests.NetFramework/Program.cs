@@ -4,13 +4,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace IEnumerableVisualizer.Tests.NetCore
+namespace IEnumerableVisualizer.Tests.NetFramework
 {
     /// <summary>
-    /// This is a .NET Core application.
+    /// This is a .NET Framework application.
     /// </summary>
     class Program
     {
@@ -188,7 +187,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
             control.Controls.Add(new TextBox());
             control.Controls.Add(new TextBox());
             var controlCollection = control.Controls;
-            var oneDimentionalArray = new CustomObject[] { new CustomObject() , new CustomObject()};
+            var oneDimentionalArray = new CustomObject[] { new CustomObject(), new CustomObject() };
 
             Console.WriteLine(oneDimentionalArray);
             Console.WriteLine(controlCollection);
@@ -245,3 +244,4 @@ namespace IEnumerableVisualizer.Tests.NetCore
         }
     }
 }
+

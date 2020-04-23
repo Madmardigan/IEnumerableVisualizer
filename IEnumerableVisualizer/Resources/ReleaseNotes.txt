@@ -1,3 +1,4 @@
+Added support for CollectionView, ObservableCollection, BaseCollection, and UIElementCollection Visualizer.
 Added horizontal scroll on mouse wheel as default when there is no vertical scroll bar.
 Added support for ValueCollection and ControlCollection.
 Added support for BindingList.

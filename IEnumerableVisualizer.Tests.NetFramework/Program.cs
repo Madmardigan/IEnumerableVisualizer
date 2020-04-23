@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace IEnumerableVisualizer.Tests.NetFramework
@@ -14,6 +15,7 @@ namespace IEnumerableVisualizer.Tests.NetFramework
     class Program
     {
         private const int COUNT = 50;
+        public static List<CustomObject> List {get;} = new List<CustomObject>();
 
         static void Main(string[] args)
         {
@@ -21,6 +23,7 @@ namespace IEnumerableVisualizer.Tests.NetFramework
 
             for (int i = 1; i <= COUNT; i++)
             {
+                List.Add(GetCustomObject(i));
                 list.Add(GetCustomObject(i));
             }
 
@@ -183,11 +186,16 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             arrayList.Add(1);
             var bindingList = new BindingList<CustomObject>(list);
             var valueCollection = new Dictionary<string, CustomObject>.ValueCollection(dictionary);
-            var control = new Form();
-            control.Controls.Add(new TextBox());
-            control.Controls.Add(new TextBox());
-            var controlCollection = control.Controls;
+            var form = new Form();
+            form.Controls.Add(new TextBox());
+            form.Controls.Add(new TextBox());
+            var controlCollection = form.Controls;
             var oneDimentionalArray = new CustomObject[] { new CustomObject(), new CustomObject() };
+
+            Thread t = new Thread(Start);
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Console.WriteLine(oneDimentionalArray);
             Console.WriteLine(controlCollection);
@@ -226,6 +234,17 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             //Console.WriteLine(dictionaryBase);
             //var readOnlyCollectionBase = new ReadOnlyCollectionBase();
             //Console.WriteLine(readOnlyCollectionBase);
+        }
+
+        private static void Start()
+        {
+            var dataGrid = new System.Windows.Controls.DataGrid();
+            dataGrid.ItemsSource = List;
+            Console.WriteLine(dataGrid.Items);   
+            var panel = new System.Windows.Controls.StackPanel();
+            panel.Children.Add(new System.Windows.Controls.TextBox() { Text = "test" });
+            panel.Children.Add(new System.Windows.Controls.TextBlock() { Text = "test" });
+            Console.WriteLine(panel.Children);
         }
 
         public static CustomObject GetCustomObject(int i)

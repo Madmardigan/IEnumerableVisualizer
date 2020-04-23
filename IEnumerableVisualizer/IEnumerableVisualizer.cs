@@ -4,9 +4,12 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Forms;
 
 //reference to debugee side
@@ -35,7 +38,12 @@ using System.Windows.Forms;
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(DataRowCollection), Description = "DataRowCollection Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(BindingList<>), Description = "BindingList Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Dictionary<,>.ValueCollection), Description = "ValueCollection Visualizer")]
-[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Control.ControlCollection), Description = "ControlCollection Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(System.Windows.Forms.Control.ControlCollection), Description = "ControlCollection Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(CollectionView), Description = "CollectionView Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(ObservableCollection<>), Description = "ObservableCollection Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(BaseCollection), Description = "BaseCollection Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(UIElementCollection), Description = "UIElementCollection Visualizer")]
+
 
 namespace IEnumerableVisualizerDotNetStandard
 {

@@ -43,6 +43,7 @@ using System.Windows.Forms;
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(ObservableCollection<>), Description = "ObservableCollection Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(BaseCollection), Description = "BaseCollection Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(UIElementCollection), Description = "UIElementCollection Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(HashSet<>), Description = "HashSet Visualizer")]
 
 
 namespace IEnumerableVisualizerDotNetStandard

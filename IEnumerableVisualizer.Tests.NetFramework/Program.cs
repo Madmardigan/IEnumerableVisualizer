@@ -191,12 +191,13 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             form.Controls.Add(new TextBox());
             var controlCollection = form.Controls;
             var oneDimentionalArray = new CustomObject[] { new CustomObject(), new CustomObject() };
+            var thread = new Thread(Start);
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+            var hashSet = new HashSet<CustomObject>(list);
 
-            Thread t = new Thread(Start);
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            t.Join();
-
+            Console.WriteLine(hashSet);
             Console.WriteLine(oneDimentionalArray);
             Console.WriteLine(controlCollection);
             Console.WriteLine(valueCollection);

@@ -6,6 +6,7 @@
 		<Description xml:space="preserve">An extension that adds a debug visualizer for objects that implement the IEnumerable interface. The following classes are supported: Array, ArrayList, BaseCollection, BindingList, BitArray, BlockingCollection, CollectionBase, CollectionView, ConcurrentBag, ConcurrentDictionary, ConcurrentQueue, ConcurrentStack, DataRow, DataRowCollection, Dictionary, DictionaryBase, HashSet, LinkedList, List, ObservableCollection, Queue, ReadOnlyCollectionBase, SortedList, SortedSet, Stack, and UIElementCollection.</Description>
 		<ReleaseNotes>Resources\ReleaseNotes.txt</ReleaseNotes>
 		<Icon>Resources\IEnumerableVisualizerVSPackage.ico</Icon>
+		<PreviewImage>Resources\Preview.png</PreviewImage>
 		<Tags>array arrays collection collections debug debugger datarow dictionary dictionaries elements ienumerable list lists view visualizer</Tags>
 	</Metadata>
 	<Installation>

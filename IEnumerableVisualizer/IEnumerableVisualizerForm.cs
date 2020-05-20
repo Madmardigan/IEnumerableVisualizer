@@ -1,5 +1,7 @@
 ﻿using System.Data;
+using System.Drawing;
 using System.Linq;
+using System.Windows;
 using System.Windows.Forms;
 
 namespace IEnumerableVisualizerDotNetStandard
@@ -9,6 +11,14 @@ namespace IEnumerableVisualizerDotNetStandard
         public IEnumerableVisualizerForm(DataTable dataTable)
         {
             InitializeComponent();
+            var screen = Screen.FromControl(this);
+
+            if (screen != null && screen.Bounds != null && screen.Primary)
+            {
+                var scale = (float)(screen.Bounds.Width / SystemParameters.PrimaryScreenWidth);
+                Font = new Font(Font.FontFamily.Name, scale * Font.Size);
+            }
+                
             button1.TabIndex = 0;
 
             if (dataTable != null)

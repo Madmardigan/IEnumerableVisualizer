@@ -1,3 +1,4 @@
+Visualizer font size will scale on primary screen.
 Added support for HashSet.
 Added support for CollectionView, ObservableCollection, BaseCollection, and UIElementCollection.
 Horizontal scroll on mouse wheel as default when there is no vertical scroll bar.

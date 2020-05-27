@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Forms;
@@ -44,8 +45,12 @@ using System.Windows.Forms;
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(BaseCollection), Description = "BaseCollection Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(UIElementCollection), Description = "UIElementCollection Visualizer")]
 [assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(HashSet<>), Description = "HashSet Visualizer")]
-
-
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(Enumerable), Description = "IEnumerable Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), TargetTypeName = "System.Linq.Enumerable+WhereSelectListIterator`2, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", Description = "WhereSelectListIterator Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), TargetTypeName = "System.Linq.Enumerable+WhereSelectArrayIterator`2, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", Description = "WhereSelectArrayIterator Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), TargetTypeName = "System.Linq.Enumerable+WhereArrayIterator`1, System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", Description = "WhereArrayIterator Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(IEnumerable<>), Description = "IEnumerable Visualizer")]
+[assembly: DebuggerVisualizer(typeof(IEnumerableVisualizer), typeof(IEnumerableVisualizerObjectSource), Target = typeof(IEnumerable), Description = "IEnumerable Visualizer")]
 namespace IEnumerableVisualizerDotNetStandard
 {
     /// <summary>

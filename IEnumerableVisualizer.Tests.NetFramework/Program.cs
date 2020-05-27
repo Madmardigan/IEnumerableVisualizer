@@ -4,6 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -15,7 +16,7 @@ namespace IEnumerableVisualizer.Tests.NetFramework
     class Program
     {
         private const int COUNT = 50;
-        public static List<CustomObject> List {get;} = new List<CustomObject>();
+        public static List<CustomObject> List { get; } = new List<CustomObject>();
 
         static void Main(string[] args)
         {
@@ -196,7 +197,17 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             thread.Start();
             thread.Join();
             var hashSet = new HashSet<CustomObject>(list);
+            var whereSelectArrayIterator = new object[] { 1, 2 }.Select(x => x);
+            var whereArrayIterator1 = new object[] { 1, 2 }.Where(x => x != null);
+            var whereArrayIterator2 = new CustomObject[] { new CustomObject(), new CustomObject() }.Where(x => x != null);
+            IEnumerable<object> iEnumerable = null;
+            var testGeneric= typeof(IEnumerable<>);
+            var typeGeneric = testGeneric.GetType();
+            var type2 = Type.GetType("System.Collections.Generic.IEnumerable`1");
 
+            Console.WriteLine(iEnumerable);
+            Console.WriteLine(whereArrayIterator1);
+            Console.WriteLine(whereArrayIterator2);
             Console.WriteLine(hashSet);
             Console.WriteLine(oneDimentionalArray);
             Console.WriteLine(controlCollection);
@@ -241,7 +252,7 @@ namespace IEnumerableVisualizer.Tests.NetFramework
         {
             var dataGrid = new System.Windows.Controls.DataGrid();
             dataGrid.ItemsSource = List;
-            Console.WriteLine(dataGrid.Items);   
+            Console.WriteLine(dataGrid.Items);
             var panel = new System.Windows.Controls.StackPanel();
             panel.Children.Add(new System.Windows.Controls.TextBox() { Text = "test" });
             panel.Children.Add(new System.Windows.Controls.TextBlock() { Text = "test" });
@@ -262,6 +273,11 @@ namespace IEnumerableVisualizer.Tests.NetFramework
                 Property4 = new object[][] { new object[] { i } }
             };
         }
+    }
+
+    public class TestGeneric<T>
+    {
+
     }
 }
 

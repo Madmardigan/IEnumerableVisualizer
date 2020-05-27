@@ -1,3 +1,4 @@
+Added support for Linq Select and Where queries.
 Visualizer font size will scale on primary screen.
 Added support for HashSet.
 Added support for CollectionView, ObservableCollection, BaseCollection, and UIElementCollection.

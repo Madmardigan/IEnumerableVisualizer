@@ -200,8 +200,8 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             var whereSelectArrayIterator = new object[] { 1, 2 }.Select(x => x);
             var whereArrayIterator1 = new object[] { 1, 2 }.Where(x => x != null);
             var whereArrayIterator2 = new CustomObject[] { new CustomObject(), new CustomObject() }.Where(x => x != null);
-            IEnumerable<object> iEnumerable = null;
-            var testGeneric= typeof(IEnumerable<>);
+            IEnumerable<object> iEnumerable = new object[] { 1, 2 };
+            var testGeneric = typeof(IEnumerable<>);
             var typeGeneric = testGeneric.GetType();
             var type2 = Type.GetType("System.Collections.Generic.IEnumerable`1");
 
@@ -274,10 +274,4 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             };
         }
     }
-
-    public class TestGeneric<T>
-    {
-
-    }
 }
-

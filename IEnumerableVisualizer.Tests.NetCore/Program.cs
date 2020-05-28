@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Threading;
+using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace IEnumerableVisualizer.Tests.NetCore
@@ -15,6 +17,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
     class Program
     {
         private const int COUNT = 50;
+        public static List<CustomObject> List { get; } = new List<CustomObject>();
 
         static void Main(string[] args)
         {
@@ -22,6 +25,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
 
             for (int i = 1; i <= COUNT; i++)
             {
+                List.Add(GetCustomObject(i));
                 list.Add(GetCustomObject(i));
             }
 
@@ -184,12 +188,24 @@ namespace IEnumerableVisualizer.Tests.NetCore
             arrayList.Add(1);
             var bindingList = new BindingList<CustomObject>(list);
             var valueCollection = new Dictionary<string, CustomObject>.ValueCollection(dictionary);
-            var control = new Form();
-            control.Controls.Add(new TextBox());
-            control.Controls.Add(new TextBox());
-            var controlCollection = control.Controls;
-            var oneDimentionalArray = new CustomObject[] { new CustomObject() , new CustomObject()};
+            var form = new Form();
+            form.Controls.Add(new System.Windows.Forms.TextBox());
+            form.Controls.Add(new System.Windows.Forms.TextBox());
+            var controlCollection = form.Controls;
+            var oneDimentionalArray = new CustomObject[] { new CustomObject(), new CustomObject() };
+            var hashSet = new HashSet<CustomObject>(list);
+            var whereSelectArrayIterator = new object[] { 1, 2 }.Select(x => x);
+            var whereArrayIterator1 = new object[] { 1, 2 }.Where(x => x != null);
+            var whereArrayIterator2 = new CustomObject[] { new CustomObject(), new CustomObject() }.Where(x => x != null);
+            IEnumerable<object> iEnumerable = new object[] { 1, 2 };
+            var testGeneric = typeof(IEnumerable<>);
+            var typeGeneric = testGeneric.GetType();
+            var type2 = Type.GetType("System.Collections.Generic.IEnumerable`1");
 
+            Console.WriteLine(iEnumerable);
+            Console.WriteLine(whereArrayIterator1);
+            Console.WriteLine(whereArrayIterator2);
+            Console.WriteLine(hashSet);
             Console.WriteLine(oneDimentionalArray);
             Console.WriteLine(controlCollection);
             Console.WriteLine(valueCollection);
@@ -224,9 +240,7 @@ namespace IEnumerableVisualizer.Tests.NetCore
             //var collectionBase = _ as CollectionBase;
             //Console.WriteLine(collectionBase);
             //var dictionaryBase = dictionary as DictionaryBase;
-            //Console.WriteLine(dictionaryBase);
-            //var readOnlyCollectionBase = new ReadOnlyCollectionBase();
-            //Console.WriteLine(readOnlyCollectionBase);
+            //Console.WriteLine(dictionaryBase);  
         }
 
         public static CustomObject GetCustomObject(int i)

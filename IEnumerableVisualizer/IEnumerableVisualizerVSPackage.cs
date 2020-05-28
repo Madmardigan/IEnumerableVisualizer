@@ -22,7 +22,7 @@ namespace IEnumerableVisualizerDotNetStandard
         public const string DEBUGGEE_SIDE_FILENAME = "IEnumerableVisualizerDotNetStandard.dll";
         public string[] DebugeeDirectories { get; } = new string[] { "net2.0", "netstandard2.0", "netcoreapp" };
         public const string VISUAL_STUDIO_INSTALL_PATH = @"Common7\Packages\Debugger\Visualizers";
-        public const string MY_DOCUMENTS_FOLDER = @"Visual Studio 2019";
+        public const string VISUAL_STUDIO_2019_FOLDER = @"Visual Studio 2019";
         public const string VISUALIZERS_FOLDER = @"Visualizers";
 
 
@@ -32,7 +32,7 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             var sourceDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            //this is the source debugger file that needs deployed
+            //this is the source debugger file to be deployed
             var sourceDebuggerFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGER_SIDE_FILENAME));
             var sourceDebugeeFile = new FileInfo(string.Format(@"{0}\{1}", sourceDirectory, DEBUGGEE_SIDE_FILENAME));
 
@@ -40,7 +40,7 @@ namespace IEnumerableVisualizerDotNetStandard
 
             if (await GetServiceAsync(typeof(SVsShell)) is IVsShell shell)
             {
-                //this is directory path 1 in my visual studio directory
+                //this is directory path 1 in visual studio directory
                 shell.GetProperty((int)__VSSPROPID2.VSSPROPID_VisualStudioDir, out object pvar1);
 
                 if (pvar1 != null)
@@ -56,7 +56,7 @@ namespace IEnumerableVisualizerDotNetStandard
                     }
                 }
 
-                //this is directory path 2 in in visual studio install root folder
+                //this is directory path 2 in visual studio install root folder
                 shell.GetProperty((int)__VSSPROPID2.VSSPROPID_InstallRootDir, out object pvar2);
 
                 if (pvar2 != null)
@@ -74,7 +74,7 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 //this is directory path 3 in my documents, should be the same as path 1, file not found edge case
                 var myDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                myDocumentsFolder = Path.Combine(myDocumentsFolder, MY_DOCUMENTS_FOLDER);
+                myDocumentsFolder = Path.Combine(myDocumentsFolder, VISUAL_STUDIO_2019_FOLDER);
                 myDocumentsFolder = Path.Combine(myDocumentsFolder, VISUALIZERS_FOLDER);
                 var myDocumentsDebuggerFileName = new FileInfo(string.Format(@"{0}\{1}", myDocumentsFolder, DEBUGGER_SIDE_FILENAME));
                 Deploy(sourceDebuggerFile, myDocumentsDebuggerFileName);

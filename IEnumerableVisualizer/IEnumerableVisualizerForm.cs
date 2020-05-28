@@ -117,7 +117,7 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             if (dataGridView1.Controls.OfType<VScrollBar>().FirstOrDefault()?.Visible != true )
             {
-                int offset = dataGridView1.HorizontalScrollingOffset + e.Delta;
+                int offset = dataGridView1.HorizontalScrollingOffset - e.Delta;
 
                 if (offset < 0)
                 {

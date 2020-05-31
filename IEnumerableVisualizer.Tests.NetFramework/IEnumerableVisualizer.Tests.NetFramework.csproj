@@ -8,9 +8,10 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>IEnumerableVisualizer.Tests.NetFramework</RootNamespace>
     <AssemblyName>IEnumerableVisualizer.Tests.NetFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -47,15 +50,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomObject.cs" />
-    <Compile Include="CustomObjectNoFields.cs" />
-    <Compile Include="CustomObjectNoProperties.cs" />
-    <Compile Include="CustomObjectNoPropertiesOrFields.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IEnumerableVisualizer.Tests.Shared\IEnumerableVisualizer.Tests.Shared.csproj">
+      <Project>{904e2000-5cbf-421e-8644-d97252333f5b}</Project>
+      <Name>IEnumerableVisualizer.Tests.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

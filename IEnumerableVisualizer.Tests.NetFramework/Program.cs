@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using IEnumerableVisualizer.Tests.Shared;
 
 namespace IEnumerableVisualizer.Tests.NetFramework
 {
@@ -15,74 +16,74 @@ namespace IEnumerableVisualizer.Tests.NetFramework
     /// </summary>
     class Program
     {
-        private const int COUNT = 50;
+        private const int COUNT = 51;
         public static List<CustomObject> List { get; } = new List<CustomObject>();
 
         static void Main(string[] args)
         {
             var list = new List<CustomObject>();
 
-            for (int i = 1; i <= COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
-                List.Add(GetCustomObject(i));
-                list.Add(GetCustomObject(i));
+                List.Add(CustomObject.Get(i));
+                list.Add(CustomObject.Get(i));
             }
 
             var dictionary = new Dictionary<string, CustomObject>();
 
-            for (int i = 0; i < COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
                 dictionary.Add(i.ToString(), list[i]);
             };
 
             var list2 = new List<CustomObjectNoFields>();
 
-            for (int i = 1; i <= COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
                 list2.Add(new CustomObjectNoFields()
                 {
-                    Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
+                    Property1 = string.Format("Property {0}", i),
                     Property2 = i
                 });
             }
 
             var list3 = new List<CustomObjectNoProperties>();
 
-            for (int i = 1; i <= COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
                 list3.Add(new CustomObjectNoProperties()
                 {
-                    Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}{0}", i),
+                    Field1 = string.Format("Field {0}", i),
                     Field2 = i
                 });
             }
 
             var list4 = new List<CustomObjectNoPropertiesOrFields>();
 
-            for (int i = 1; i <= COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
                 list4.Add(new CustomObjectNoPropertiesOrFields());
             }
 
             var dictionary2 = new Dictionary<CustomObject, CustomObject>();
 
-            for (int i = 0; i < COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
-                dictionary2.Add(GetCustomObject(i), GetCustomObject(i));
+                dictionary2.Add(CustomObject.Get(i), CustomObject.Get(i));
             };
 
             var array = new CustomObject[COUNT];
 
-            for (int i = 0; i < COUNT; i++)
+            for (int i = 0; i <= COUNT; i++)
             {
-                array[i] = GetCustomObject(i);
+                array[i] = CustomObject.Get(i);
             }
 
             var arrayList = new ArrayList();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                arrayList.Add(GetCustomObject(i));
+                arrayList.Add(CustomObject.Get(i));
             }
 
             var bitArray = new BitArray(new bool[] { false, false, false, true, true, false, true });
@@ -90,91 +91,91 @@ namespace IEnumerableVisualizer.Tests.NetFramework
 
             for (int i = 0; i <= COUNT; i++)
             {
-                blockingCollection.Add(GetCustomObject(i));
+                blockingCollection.Add(CustomObject.Get(i));
             }
 
             var concurrentBag = new ConcurrentBag<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentBag.Add(GetCustomObject(i));
+                concurrentBag.Add(CustomObject.Get(i));
             }
 
             var concurrentDictionary = new ConcurrentDictionary<CustomObject, CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentDictionary.TryAdd(GetCustomObject(i), GetCustomObject(i));
+                concurrentDictionary.TryAdd(CustomObject.Get(i), CustomObject.Get(i));
             }
 
             var concurrentQueue = new ConcurrentQueue<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentQueue.Enqueue(GetCustomObject(i));
+                concurrentQueue.Enqueue(CustomObject.Get(i));
             }
 
             var concurrentStack = new ConcurrentStack<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                concurrentStack.Push(GetCustomObject(i));
+                concurrentStack.Push(CustomObject.Get(i));
             }
 
             var linkedList = new LinkedList<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                linkedList.AddLast(GetCustomObject(i));
+                linkedList.AddLast(CustomObject.Get(i));
             }
 
             var stack1 = new Stack<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                stack1.Push(GetCustomObject(i));
+                stack1.Push(CustomObject.Get(i));
             }
 
             var stack2 = new Stack();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                stack2.Push(GetCustomObject(i));
+                stack2.Push(CustomObject.Get(i));
             }
 
             var sortedList1 = new SortedList();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                sortedList1.Add(i, GetCustomObject(i));
+                sortedList1.Add(i, CustomObject.Get(i));
             }
 
             var sortedList2 = new SortedList<CustomObject, CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                sortedList2.Add(GetCustomObject(i), GetCustomObject(i));
+                sortedList2.Add(CustomObject.Get(i), CustomObject.Get(i));
             }
 
             var sortedSet = new SortedSet<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                sortedSet.Add(GetCustomObject(i));
+                sortedSet.Add(CustomObject.Get(i));
             }
 
             var queue1 = new Queue();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                queue1.Enqueue(GetCustomObject(i));
+                queue1.Enqueue(CustomObject.Get(i));
             }
 
             var queue2 = new Queue<CustomObject>();
 
             for (int i = 0; i <= COUNT; i++)
             {
-                queue2.Enqueue(GetCustomObject(i));
+                queue2.Enqueue(CustomObject.Get(i));
             }
 
             var dataTable = new DataTable();
@@ -257,21 +258,6 @@ namespace IEnumerableVisualizer.Tests.NetFramework
             panel.Children.Add(new System.Windows.Controls.TextBox() { Text = "test" });
             panel.Children.Add(new System.Windows.Controls.TextBlock() { Text = "test" });
             Console.WriteLine(panel.Children);
-        }
-
-        public static CustomObject GetCustomObject(int i)
-        {
-            return new CustomObject()
-            {
-                Field1 = string.Format("Field {0}{0}{0}{0}{0}{0}{0}{0}", i),
-                Field2 = i,
-                Field3 = i % 2 == 1 ? (int?)i : null,
-                Field4 = null,
-                Property1 = string.Format("Property {0}{0}{0}{0}{0}{0}", i),
-                Property2 = i,
-                Property3 = i % 2 == 1 ? (int?)i : null,
-                Property4 = new object[][] { new object[] { i } }
-            };
         }
     }
 }

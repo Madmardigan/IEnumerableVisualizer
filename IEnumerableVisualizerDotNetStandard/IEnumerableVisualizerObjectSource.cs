@@ -37,7 +37,7 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(bitArray.Cast<object>());
             }
-            else if(target is BindingList<object> bindingList)
+            else if (target is BindingList<object> bindingList)
             {
                 results = Serialize(bindingList);
             }
@@ -79,7 +79,7 @@ namespace IEnumerableVisualizerDotNetStandard
             {
                 results = Serialize(dictionary1);
             }
-            else if(target is Dictionary<object, object>.ValueCollection valueCollection)
+            else if (target is Dictionary<object, object>.ValueCollection valueCollection)
             {
                 results = Serialize(valueCollection);
             }
@@ -198,12 +198,12 @@ namespace IEnumerableVisualizerDotNetStandard
 
                 foreach (DataColumn column in dataTable1.Columns)
                 {
-                    results.Columns.Add(string.Format("[{0}]", column.ColumnName), column.DataType);
+                    AddColumn(results, string.Format("[{0}]", column.ColumnName), column.DataType);
                 }
 
                 foreach (DataColumn column in dataTable2.Columns)
                 {
-                    results.Columns.Add(column.ColumnName, column.DataType);
+                    AddColumn(results, column.ColumnName, column.DataType);
                 }
 
                 var dataTable1Count = dataTable1.Rows.Count;
@@ -233,16 +233,16 @@ namespace IEnumerableVisualizerDotNetStandard
 
         public DataTable Serialize(object[] objects)
         {
-            var result = new DataTable();
+            var results = new DataTable();
             var isHeterogeneous = objects.Select(x => x.GetType()).Distinct().Count() > 1;
 
             if (isHeterogeneous)
             {
-                result.Columns.Add(typeof(object).Name);
+                AddColumn(results, typeof(object).Name, typeof(string));
 
                 for (int i = 0; i < objects.Length; i++)
                 {
-                    result.Rows.Add(objects[i]?.ToString());
+                    results.Rows.Add(objects[i]?.ToString());
                 }
             }
             else
@@ -265,20 +265,20 @@ namespace IEnumerableVisualizerDotNetStandard
 
                         if (type.IsPrimitive || type.IsValueType || type == typeof(string) || type == typeof(IntPtr))
                         {
-                            result.Columns.Add(type.ToString(), GetColumnType(type));
+                            AddColumn(results, type.ToString(), GetColumnType(type));
                         }
                         else
                         {
                             for (int j = 0; j < fieldInfosLength; j++)
                             {
                                 var fieldType = fieldInfos[j].FieldType;
-                                result.Columns.Add(fieldInfos[j].Name, GetColumnType(fieldType));
+                                AddColumn(results, fieldInfos[j].Name, GetColumnType(fieldType));
                             }
 
                             for (int j = 0; j < propertyInfosLength; j++)
                             {
                                 var propertyType = propertyInfos[j].PropertyType;
-                                result.Columns.Add(propertyInfos[j].Name, GetColumnType(propertyType));
+                                AddColumn(results, propertyInfos[j].Name, GetColumnType(propertyType));
                             }
                         }
 
@@ -309,7 +309,7 @@ namespace IEnumerableVisualizerDotNetStandard
 
                                     try
                                     {
-                                        value = GetValue(result.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
+                                        value = GetValue(results.Columns[values.Count].DataType, fieldInfos[j].GetValue(objects[i]));
                                     }
                                     catch (Exception ex)
                                     {
@@ -325,7 +325,7 @@ namespace IEnumerableVisualizerDotNetStandard
 
                                     try
                                     {
-                                        value = GetValue(result.Columns[values.Count].DataType, propertyInfos[j].GetValue(objects[i]));
+                                        value = GetValue(results.Columns[values.Count].DataType, propertyInfos[j].GetValue(objects[i]));
                                     }
                                     catch (Exception ex)
                                     {
@@ -338,19 +338,36 @@ namespace IEnumerableVisualizerDotNetStandard
 
                             for (int j = 0; j < values.Count(); j++)
                             {
-                                if(values[j] is string && result.Columns[j].DataType != typeof(string))
+                                if (values[j] is string && results.Columns[j].DataType != typeof(string))
                                 {
-                                    result.Columns[j].DataType = typeof(string);
+                                    results.Columns[j].DataType = typeof(string);
                                 }
                             }
 
-                            result.Rows.Add(values.ToArray());
+                            results.Rows.Add(values.ToArray());
                         }
                     }
                 }
             }
 
-            return result;
+            return results;
+        }
+
+        private void AddColumn(DataTable result, string columnName, Type type)
+        {
+            if (result != null && result.Columns != null)
+            {
+                var columnNameTemplate = columnName + "_{0}";
+                int i = 0;
+
+                while (result.Columns.Contains(columnName) && i < int.MaxValue)
+                {
+                    columnName = string.Format(columnNameTemplate, i);
+                    i++;
+                }
+
+                result.Columns.Add(columnName, GetColumnType(type));
+            }
         }
 
         private object GetValue(Type type, object value)

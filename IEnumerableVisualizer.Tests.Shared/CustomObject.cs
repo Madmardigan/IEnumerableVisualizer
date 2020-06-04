@@ -4,7 +4,7 @@ namespace IEnumerableVisualizer.Tests.Shared
 {
     public class CustomObject : CustomObjectBase, IComparable
     {
-        public string Field1;
+        new public string Field1;
         public int Field2;
         public int? Field3;
         public object[][] Field4;

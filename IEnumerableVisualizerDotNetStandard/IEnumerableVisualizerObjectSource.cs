@@ -357,7 +357,7 @@ namespace IEnumerableVisualizerDotNetStandard
         {
             if (result != null && result.Columns != null)
             {
-                var columnNameTemplate = columnName + "_{0}";
+                var columnNameTemplate = columnName + " ({0})";
                 int i = 0;
 
                 while (result.Columns.Contains(columnName) && i < int.MaxValue)
